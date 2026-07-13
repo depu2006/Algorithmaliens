@@ -1,0 +1,81 @@
+[
+  {
+    "id": "web-development",
+    "title": "Website Development",
+    "icon": "Globe",
+    "description": "Building high-performance, responsive, and visually stunning web interfaces tailored to your business needs.",
+    "longDescription": "We design and develop premium, modern websites that combine exceptional aesthetics with robust performance. From custom SaaS platforms to corporate portfolios, we ensure your online presence is fast, secure, and optimized for conversions.",
+    "items": [
+      "Business Websites",
+      "Portfolio Websites",
+      "E-Commerce Websites",
+      "Custom Web Applications"
+    ],
+    "benefits": [
+      "100% Mobile Responsive Designs",
+      "Optimized for SEO and Fast Loading Speed",
+      "Interactive Framer Motion Animations",
+      "Secure and Scalable Architecture"
+    ],
+    "tech": ["React", "Bootstrap", "JavaScript", "TypeScript", "Vite", "Framer Motion"]
+  },
+  {
+    "id": "mobile-development",
+    "title": "Mobile App Development",
+    "icon": "Smartphone",
+    "description": "Creating seamless, feature-rich iOS and Android mobile applications for an unparalleled on-the-go experience.",
+    "longDescription": "Our mobile development team crafts native and cross-platform applications that deliver smooth performance, intuitive navigation, and rich features. We handle the entire lifecycle, from design to deployment on Google Play and Apple App Store.",
+    "items": [
+      "Android Apps",
+      "iOS Apps",
+      "Cross Platform Apps"
+    ],
+    "benefits": [
+      "Single Codebase for iOS & Android",
+      "Native Performance & Smooth Transitions",
+      "Push Notifications & Offline Support",
+      "App Store & Play Store Deployment"
+    ],
+    "tech": ["React Native", "Flutter", "Android", "iOS", "Firebase", "Cross Platform"]
+  },
+  {
+    "id": "ai-automation",
+    "title": "AI Automation",
+    "icon": "Cpu",
+    "description": "Leveraging state-of-the-art AI systems to streamline workflows and automate business operations.",
+    "longDescription": "Empower your business with next-generation Artificial Intelligence. We build and integrate custom AI solutions, automation pipelines, and smart agents that save thousands of manual hours and unlock new efficiencies.",
+    "items": [
+      "AI Chatbots",
+      "Workflow Automation",
+      "Business Process Automation",
+      "AI Assistants",
+      "Voice Agents"
+    ],
+    "benefits": [
+      "24/7 Intelligent Customer Support",
+      "Eliminate Repetitive Tasks & Human Error",
+      "Integrate OpenAI & LangChain into Workflows",
+      "Advanced Data Analysis & Business Intelligence"
+    ],
+    "tech": ["OpenAI APIs", "LangChain", "Python", "Node.js", "Vector Databases", "Workflow Tools"]
+  },
+  {
+    "id": "custom-software",
+    "title": "Custom Software Solutions",
+    "icon": "Code",
+    "description": "Tailor-made enterprise software designed to solve complex business challenges and scale operations.",
+    "longDescription": "Every business is unique, and off-the-shelf software often falls short. We engineer bespoke software solutions from scratch, addressing your specific pain points, integrating with existing tools, and supporting your business growth.",
+    "items": [
+      "Enterprise Applications",
+      "SaaS Platforms",
+      "Internal Business Tools"
+    ],
+    "benefits": [
+      "Fully Custom Workflows & Features",
+      "Third-Party API Integrations",
+      "Advanced Security & Access Control",
+      "Scalable Infrastructure & Maintenance"
+    ],
+    "tech": ["React", "Node.js", "Express", "PostgreSQL", "Docker", "AWS"]
+  }
+]

@@ -1,0 +1,30 @@
+[
+  {
+    "id": "projects",
+    "value": 120,
+    "suffix": "+",
+    "label": "Projects Completed",
+    "description": "Bespoke SaaS, mobile applications, and automation systems delivered globally."
+  },
+  {
+    "id": "clients",
+    "value": 45,
+    "suffix": "+",
+    "label": "Clients Served",
+    "description": "Happy startups, educational institutes, and mid-sized enterprises."
+  },
+  {
+    "id": "students",
+    "value": 2500,
+    "suffix": "+",
+    "label": "Students Trained",
+    "description": "Nurtured through AlgorithmAliens Academy courses and bootcamps."
+  },
+  {
+    "id": "events",
+    "value": 15,
+    "suffix": "",
+    "label": "Events Conducted",
+    "description": "Hackathons, competitive programming challenges, and technology expos."
+  }
+]

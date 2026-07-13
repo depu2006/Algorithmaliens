@@ -1,0 +1,50 @@
+[
+  {
+    "id": "faq1",
+    "category": "general",
+    "question": "Who are AlgorithmAliens?",
+    "answer": "AlgorithmAliens Pvt. Ltd. is a cutting-edge technology company specializing in custom software development, mobile apps, AI-powered automation solutions, university tech clubs (ANX Clubs), and internship training programs."
+  },
+  {
+    "id": "faq2",
+    "category": "services",
+    "question": "What is the typical timeline for developing a website or app?",
+    "answer": "Timelines vary depending on complexity. A custom corporate business website usually takes 3-6 weeks, while a comprehensive mobile app or complex SaaS software project can take 8-16 weeks. We follow an agile development process with weekly milestones."
+  },
+  {
+    "id": "faq3",
+    "category": "services",
+    "question": "Do you provide maintenance after launching the product?",
+    "answer": "Yes, we offer flexible post-launch support and maintenance contracts. This covers bug fixes, security updates, server monitoring, and iterative feature enhancements to keep your software running flawlessly."
+  },
+  {
+    "id": "faq4",
+    "category": "products",
+    "question": "What is AlgorithmAliens Academy?",
+    "answer": "The Academy is our specialized training division where students learn high-demand technical courses, participate in workshops, work on live projects, earn industry certifications, and qualify for tech internships."
+  },
+  {
+    "id": "faq5",
+    "category": "products",
+    "question": "How can my college set up an ANX Club?",
+    "answer": "Colleges can partner with us to set up an ANX Club chapter. We provide coding bootcamps, technical resources, hackathons, and mentors. Contact our partnerships team through the Contact Page or 'Book a Call' for details."
+  },
+  {
+    "id": "faq6",
+    "category": "internships",
+    "question": "Are the internships remote or in-person?",
+    "answer": "We offer hybrid internships. Remote internships are available for candidates across the country, while in-person options are hosted at our corporate office locations. All interns are mentored by senior engineers."
+  },
+  {
+    "id": "faq7",
+    "category": "events",
+    "question": "How can I participate in Hack It On 2025 or Aethronix 2026?",
+    "answer": "Registrations open 4-6 weeks before each event. You can apply directly through the Events page or sign up for our newsletter to get priority notification and early-bird passes."
+  },
+  {
+    "id": "faq8",
+    "category": "contact",
+    "question": "How do I schedule a technical consultation call?",
+    "answer": "You can go to the 'Book A Call' page, select your required service (Website, Mobile App, AI, etc.), write a brief description of your project, and submit. Our technical team will reach out with a meeting link within 24 hours."
+  }
+]

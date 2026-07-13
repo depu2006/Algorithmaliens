@@ -1,0 +1,40 @@
+[
+  {
+    "id": "academy",
+    "title": "AlgorithmAliens Academy",
+    "tagline": "Learn. Build Products. Get Certified.",
+    "description": "An elite training and career-building platform designed to bridge the gap between classroom theories and real-world software engineering.",
+    "features": [
+      "Technical Courses",
+      "Hands-on Workshops",
+      "Industry-Recognized Certifications",
+      "Guaranteed Internships",
+      "Personalized Skill Development"
+    ],
+    "benefits": [
+      "1-on-1 Mentorship from Senior Engineers",
+      "Work on Live Industry Projects",
+      "Dedicated Career Guidance & Placement Assistance"
+    ],
+    "image": "/assets/products/academy.jpg"
+  },
+  {
+    "id": "anx-clubs",
+    "title": "ANX Clubs",
+    "tagline": "Student Innovation Community",
+    "description": "A vibrant community ecosystem empowering students to lead, collaborate, code, and turn innovative ideas into fully functional startups.",
+    "features": [
+      "Coding Communities",
+      "Technical Clubs in Colleges",
+      "Innovation Programs",
+      "Exclusive Hackathons",
+      "Weekly Tech Workshops"
+    ],
+    "benefits": [
+      "High-Value Professional Networking",
+      "Leadership Opportunities in Student Chapters",
+      "Building Real Open Source & Commercial Projects"
+    ],
+    "image": "/assets/products/anxclubs.jpg"
+  }
+]
