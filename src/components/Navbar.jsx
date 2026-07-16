@@ -42,8 +42,8 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`navbar navbar-expand-lg navbar-dark fixed-top navbar-custom ${scrolled ? 'navbar-scrolled' : 'py-3'}`}>
-      <div className="container">
+    <nav className={`navbar navbar-expand-xl navbar-dark fixed-top navbar-custom ${scrolled ? 'navbar-scrolled' : 'py-3'}`}>
+      <div className="container-fluid px-lg-5 px-3">
         {/* Brand Logo */}
         <Link to="/" className="navbar-brand me-4">
           <Logo height={42} showText={true} textLight={true} />
@@ -67,7 +67,7 @@ const Navbar = () => {
 
         {/* Nav Items */}
         <div className={`collapse navbar-collapse ${isOpen ? 'show' : ''}`} id="navbarNav">
-          <ul className="navbar-nav mx-auto mb-3 mb-lg-0 gap-1 gap-lg-2">
+          <ul className="navbar-nav mx-auto mb-3 mb-xl-0 gap-1 gap-xl-2">
             {navLinks.map((link) => (
               <li className="nav-item" key={link.name}>
                 <NavLink
@@ -84,9 +84,9 @@ const Navbar = () => {
           </ul>
 
           {/* Book A Call CTA */}
-          <div className="d-flex align-items-center mt-3 mt-lg-0">
-            <Link to="/book-call" className="btn-gradient px-4 py-2 fs-6">
-              <PhoneCall size={16} />
+          <div className="d-flex align-items-center mt-3 mt-xl-0">
+            <Link to="/book-call" className="btn-gradient navbar-btn">
+              <PhoneCall size={18} />
               <span>Book A Call</span>
             </Link>
           </div>
