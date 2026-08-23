@@ -4,13 +4,14 @@ import {
   Lock, User, LogOut, Save, Plus, Trash2, Edit2, Upload, 
   FileText, Calendar, Users, Cpu, Layers, MessageSquare, 
   HelpCircle, GraduationCap, Briefcase, Activity, Check, X, 
-  ShieldAlert, Sparkles, Smartphone, Terminal, Settings, RefreshCw, Eye
+  ShieldAlert, Sparkles, Smartphone, Terminal, Settings, RefreshCw, Eye, EyeOff
 } from 'lucide-react';
 
 const Admin = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(api.admin.isLoggedIn());
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [authLoading, setAuthLoading] = useState(false);
   const [authError, setAuthError] = useState(null);
 
@@ -27,6 +28,8 @@ const Admin = () => {
   const [settingsData, setSettingsData] = useState({});
   const [currentPasswordInput, setCurrentPasswordInput] = useState('');
   const [newPasswordInput, setNewPasswordInput] = useState('');
+  const [showCurrentPasswordSettings, setShowCurrentPasswordSettings] = useState(false);
+  const [showNewPasswordSettings, setShowNewPasswordSettings] = useState(false);
   const [pwdLoading, setPwdLoading] = useState(false);
   const [pwdError, setPwdError] = useState(null);
   const [pwdSuccess, setPwdSuccess] = useState(null);
@@ -34,6 +37,7 @@ const Admin = () => {
   const [showResetForm, setShowResetForm] = useState(false);
   const [resetTokenInput, setResetTokenInput] = useState('');
   const [resetNewPassword, setResetNewPassword] = useState('');
+  const [showResetPassword, setShowResetPassword] = useState(false);
   const [resetLoading, setResetLoading] = useState(false);
   const [resetError, setResetError] = useState(null);
   const [resetSuccess, setResetSuccess] = useState(null);
@@ -301,13 +305,22 @@ const Admin = () => {
                   <Lock size={18} />
                 </span>
                 <input 
-                  type="password" 
+                  type={showPassword ? 'text' : 'password'} 
                   className="form-control form-control-custom" 
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required 
                 />
+                <button
+                  type="button"
+                  className="btn border-0 d-flex align-items-center"
+                  style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', color: 'rgba(255,255,255,0.6)' }}
+                  onClick={() => setShowPassword(!showPassword)}
+                  title={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
               </div>
             </div>
 
@@ -377,7 +390,24 @@ const Admin = () => {
                   </div>
                   <div className="mb-2">
                     <label className="form-label small text-muted">New Password</label>
-                    <input type="password" className="form-control form-control-custom" value={resetNewPassword} onChange={e=>setResetNewPassword(e.target.value)} required />
+                    <div className="input-group">
+                      <input 
+                        type={showResetPassword ? 'text' : 'password'} 
+                        className="form-control form-control-custom" 
+                        value={resetNewPassword} 
+                        onChange={e=>setResetNewPassword(e.target.value)} 
+                        required 
+                      />
+                      <button
+                        type="button"
+                        className="btn border-0 d-flex align-items-center"
+                        style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', color: 'rgba(255,255,255,0.6)' }}
+                        onClick={() => setShowResetPassword(!showResetPassword)}
+                        title={showResetPassword ? "Hide password" : "Show password"}
+                      >
+                        {showResetPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                      </button>
+                    </div>
                   </div>
                   <div className="d-flex justify-content-between">
                     <button className="btn btn-outline-cyan" type="submit" disabled={resetLoading}>{resetLoading ? 'Resetting...' : 'Reset Password'}</button>
@@ -1075,11 +1105,45 @@ const Admin = () => {
                 }}>
                   <div className="mb-3">
                     <label className="form-label text-muted-custom small mb-1">Current Password</label>
-                    <input type="password" className="form-control form-control-custom" value={currentPasswordInput} onChange={e => setCurrentPasswordInput(e.target.value)} required />
+                    <div className="input-group">
+                      <input 
+                        type={showCurrentPasswordSettings ? 'text' : 'password'} 
+                        className="form-control form-control-custom" 
+                        value={currentPasswordInput} 
+                        onChange={e => setCurrentPasswordInput(e.target.value)} 
+                        required 
+                      />
+                      <button
+                        type="button"
+                        className="btn border-0 d-flex align-items-center"
+                        style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', color: 'rgba(255,255,255,0.6)' }}
+                        onClick={() => setShowCurrentPasswordSettings(!showCurrentPasswordSettings)}
+                        title={showCurrentPasswordSettings ? "Hide password" : "Show password"}
+                      >
+                        {showCurrentPasswordSettings ? <EyeOff size={18} /> : <Eye size={18} />}
+                      </button>
+                    </div>
                   </div>
                   <div className="mb-3">
                     <label className="form-label text-muted-custom small mb-1">New Password</label>
-                    <input type="password" className="form-control form-control-custom" value={newPasswordInput} onChange={e => setNewPasswordInput(e.target.value)} required />
+                    <div className="input-group">
+                      <input 
+                        type={showNewPasswordSettings ? 'text' : 'password'} 
+                        className="form-control form-control-custom" 
+                        value={newPasswordInput} 
+                        onChange={e => setNewPasswordInput(e.target.value)} 
+                        required 
+                      />
+                      <button
+                        type="button"
+                        className="btn border-0 d-flex align-items-center"
+                        style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', color: 'rgba(255,255,255,0.6)' }}
+                        onClick={() => setShowNewPasswordSettings(!showNewPasswordSettings)}
+                        title={showNewPasswordSettings ? "Hide password" : "Show password"}
+                      >
+                        {showNewPasswordSettings ? <EyeOff size={18} /> : <Eye size={18} />}
+                      </button>
+                    </div>
                   </div>
                   <div className="d-flex justify-content-end mt-2">
                     <button type="submit" className="btn btn-outline-cyan px-4" disabled={pwdLoading}>{pwdLoading ? 'Updating...' : 'Change Password'}</button>
