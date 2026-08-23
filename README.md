@@ -17,34 +17,15 @@ If you are developing a production application, we recommend using TypeScript wi
 
 ## Admin credentials & security
 
-- Default seeded admin username: `admin` and password: `admin123` (override using env var `ADMIN_DEFAULT_PASSWORD` before first run).
-- Set `JWT_SECRET` in your environment for production; do not use the default secret.
-- Password reset flow: the server issues one-time tokens stored in the database. In development the token is logged and returned when `DEV_SHOW_TOKEN=true` for convenience. In production you must configure email delivery and the server will not return tokens in responses.
-- To change password as a logged-in admin: open `/admin` → Settings → Change Admin Password.
+Do NOT store real admin credentials or secrets in `README.md` or any committed files. The project seeds an admin account if none exists — ensure you set a secure initial password via environment variables before first run and rotate it after deployment.
 
-Email delivery & CLI
-- Configure SMTP to have the server email password reset tokens instead of returning them in responses. Set these env vars:
-	- `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` (optional `MAIL_FROM`, `DOMAIN`)
-- By default the server will not return tokens in API responses unless `DEV_SHOW_TOKEN=true` is set. This prevents accidental token exposure when running non-production builds.
-- You can create or rotate an admin password from the server folder using the included CLI:
+- Always set `JWT_SECRET` in your environment for production; never use default secrets.
+- Configure email (SMTP) for password reset delivery in production; do not enable dev token returns in production.
+- Use the provided CLI to create or rotate admin users from the `server` folder (the CLI will prompt if arguments are omitted):
 
-```
+```bash
 cd server
 npm run create-admin -- <username> <password>
 ```
 
-If you do not provide args, the script will prompt for them interactively.
-
-Password reset (locked-out) workflow
-- On the login page click "Forgot password?" and enter the `System ID` (username). The server will issue a one-time reset token.
-- In development the token is returned in the response (and logged) when `DEV_SHOW_TOKEN=true` for convenience. Copy that token.
-- Click "Have a reset token? Use it" on the login card and paste the token plus a new password to complete the reset.
-- In production, configure an email provider so the server emails the token to the admin account instead of returning it in responses.
-
-Recommended environment variables (example `.env`):
-
-```
-JWT_SECRET=your_strong_jwt_secret_here
-ADMIN_DEFAULT_PASSWORD=someSecurePass123!
-DEV_SHOW_TOKEN=true # only for development
-```
+Recommended env vars are listed in `.env.example`.

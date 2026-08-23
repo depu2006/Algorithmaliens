@@ -251,7 +251,7 @@ export async function initDb() {
       "INSERT INTO users (username, passwordHash, role) VALUES (?, ?, ?)",
       ["admin", passwordHash, "admin"]
     );
-    console.log(`[DB] Seeded default admin user with password: ${defaultPassword}`);
+    console.log(`[DB] Seeded default admin user (username: admin) — password not logged for security.`);
   }
 
   // 3. Seed dynamic content tables if empty
