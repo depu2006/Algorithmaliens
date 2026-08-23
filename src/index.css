@@ -299,6 +299,218 @@ html[data-theme='light'] body {
   border: 1px solid currentColor;
 }
 
+/* ============================================================
+   LIGHT THEME — Hardcoded class overrides
+   Fix text-white, bg-black, section bgs, inline color patterns
+   ============================================================ */
+
+/* text-white used throughout pages becomes dark in light mode */
+[data-theme='light'] .text-white {
+  color: #0D0D12 !important;
+}
+
+/* bg-black section panels (about preview, products, events) */
+[data-theme='light'] .bg-black {
+  background-color: #ECEEF2 !important;
+}
+
+/* bg-opacity-30 — used on section backgrounds */
+[data-theme='light'] .bg-opacity-30 {
+  --bs-bg-opacity: 1 !important;
+}
+
+/* Section borders in light mode */
+[data-theme='light'] section.border-top,
+[data-theme='light'] section.border-bottom {
+  border-color: rgba(0,0,0,0.08) !important;
+}
+
+/* Bootstrap border-top/bottom inside sections */
+[data-theme='light'] .border-top {
+  border-color: rgba(0,0,0,0.08) !important;
+}
+
+/* Card inner text that uses hardcoded .text-white */
+[data-theme='light'] .card-custom .text-white,
+[data-theme='light'] .card-custom h3,
+[data-theme='light'] .card-custom h4,
+[data-theme='light'] .card-custom h6 {
+  color: #0D0D12 !important;
+}
+
+/* Carousel testimonial quote text */
+[data-theme='light'] .carousel-item .fs-5 {
+  color: #1F2937 !important;
+}
+
+/* Inline badge chips — fix dark chip background */
+[data-theme='light'] span.badge[style*='rgba(255,255,255,0.05)'],
+[data-theme='light'] span.badge[style*='rgba(255, 255, 255, 0.05)'] {
+  background: rgba(139, 92, 246, 0.08) !important;
+  border-color: rgba(139, 92, 246, 0.2) !important;
+  color: #374151 !important;
+}
+
+/* About section floating badge overlay (dark inner overlay) */
+[data-theme='light'] div[style*='rgba(7,7,9'] {
+  background: rgba(248,249,251,0.95) !important;
+  border-color: rgba(0,0,0,0.1) !important;
+}
+
+[data-theme='light'] div[style*='rgba(7, 7, 9'] {
+  background: rgba(248,249,251,0.95) !important;
+}
+
+/* Event bottom gradient overlay */
+[data-theme='light'] div[style*='linear-gradient(to top, rgba(7,7,9'] {
+  background: linear-gradient(to top, rgba(248,249,251,0.9), transparent) !important;
+}
+
+/* Event highlight chips */
+[data-theme='light'] span.badge.text-white[style*='rgba(255,255,255'] {
+  color: #374151 !important;
+  background: rgba(0,0,0,0.05) !important;
+  border-color: rgba(0,0,0,0.1) !important;
+}
+
+/* Home hero stepper items (.text-white inside icon list) */
+[data-theme='light'] .d-flex span.text-white,
+[data-theme='light'] .d-flex .fw-semibold.text-white,
+[data-theme='light'] .d-flex .fw-bold.text-white {
+  color: #1F2937 !important;
+}
+
+/* CTA section card */
+[data-theme='light'] .card-custom[style*='linear-gradient(180deg, rgba(255,255,255,0.03)'] {
+  background: rgba(255,255,255,0.97) !important;
+}
+
+/* Statistics number text */
+[data-theme='light'] .stat-card h2.text-white {
+  color: #0D0D12 !important;
+}
+
+/* Forms — select inside contact/book-call pages */
+[data-theme='light'] select.form-control-custom,
+[data-theme='light'] textarea.form-control-custom,
+[data-theme='light'] input.form-control-custom {
+  background-color: #fff !important;
+  color: #0D0D12 !important;
+  border-color: rgba(0,0,0,0.12) !important;
+}
+
+/* Bootstrap form controls in light mode */
+[data-theme='light'] .form-control,
+[data-theme='light'] textarea.form-control,
+[data-theme='light'] input.form-control {
+  background-color: #fff !important;
+  color: #0D0D12 !important;
+  border-color: rgba(0,0,0,0.15) !important;
+}
+
+[data-theme='light'] .form-control::placeholder {
+  color: #9CA3AF !important;
+}
+
+/* Labels and small text in forms */
+[data-theme='light'] label,
+[data-theme='light'] .form-label {
+  color: #374151 !important;
+}
+
+/* Dropdown items in contact page (service type) */
+[data-theme='light'] select option {
+  background: #fff !important;
+  color: #0D0D12 !important;
+}
+
+/* Contact info blocks - icon wrappers */
+[data-theme='light'] .icon-3d-wrapper {
+  box-shadow: 
+    inset 0 4px 8px rgba(255,255,255,0.6),
+    inset 0 -4px 8px rgba(0,0,0,0.2),
+    0 10px 20px rgba(0,0,0,0.15),
+    0 0 25px rgba(139, 92, 246, 0.3);
+}
+
+/* Bootstrap text-muted */
+[data-theme='light'] .text-muted {
+  color: #6B7280 !important;
+}
+
+/* Lead paragraph */
+[data-theme='light'] p.lead,
+[data-theme='light'] .lead {
+  color: #4B5563 !important;
+}
+
+/* Small tag inside cards */
+[data-theme='light'] .card-custom small {
+  color: #6B7280 !important;
+}
+
+/* Footer gradient text color in dark colums */
+[data-theme='light'] .footer-custom h5,
+[data-theme='light'] .footer-custom h6,
+[data-theme='light'] .footer-custom p,
+[data-theme='light'] .footer-custom small {
+  color: #374151 !important;
+}
+
+/* Page loader background */
+[data-theme='light'] .min-vh-100 {
+  background-color: #F8F9FB;
+}
+
+/* Navbar mobile expanded menu background */
+[data-theme='light'] .navbar-collapse.show {
+  background: rgba(248, 249, 251, 0.98);
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.08);
+  margin-top: 8px;
+}
+
+/* Carousel indicators */
+[data-theme='light'] .carousel-indicators button {
+  background-color: rgba(0,0,0,0.25) !important;
+}
+
+[data-theme='light'] .carousel-indicators button.active {
+  background-color: var(--primary-violet) !important;
+}
+
+/* Admin Dashboard text overrides */
+[data-theme='light'] .admin-card-glass h3,
+[data-theme='light'] .admin-card-glass h4,
+[data-theme='light'] .admin-card-glass h5,
+[data-theme='light'] .admin-card-glass span,
+[data-theme='light'] .admin-card-glass p {
+  color: #1F2937;
+}
+
+/* Override any inline backgroundColor dark-bg styles */
+[data-theme='light'] [style*="var(--dark-bg)"] {
+  background-color: #F8F9FB !important;
+}
+
+/* Bootstrap badge */
+[data-theme='light'] .badge.bg-secondary {
+  background-color: #E5E7EB !important;
+  color: #374151 !important;
+}
+
+/* Gallery, events, lightbox close button */
+[data-theme='light'] button.text-white {
+  color: #374151 !important;
+}
+
+/* Input group inside admin login */
+[data-theme='light'] .input-group .btn.border-0 {
+  background-color: rgba(0,0,0,0.04) !important;
+  color: #374151 !important;
+  border-color: rgba(0,0,0,0.1) !important;
+}
 
 
 /* Base Styles & Typography */
