@@ -158,11 +158,12 @@ export const api = {
       return res.json();
     },
     async deleteContact(id) {
-      if (USE_FIREBASE) return fb.deleteContactFromFirestore(id);
+      const firestorePromise = fb.deleteContactFromFirestore(id).catch(err => console.warn('Client Firestore delete notice:', err.message));
       const res = await fetch(`${API_BASE_URL}/admin/contacts/${id}`, {
         method: 'DELETE',
         headers: getAuthHeaders()
       });
+      await firestorePromise;
       if (!res.ok) throw new Error('Failed to delete contact');
       return res.json();
     },

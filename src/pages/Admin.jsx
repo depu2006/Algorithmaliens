@@ -109,7 +109,8 @@ const Admin = () => {
     setListError(null);
     setActionSuccess(null);
     try {
-      if (activeTab === 'services') await api.admin.deleteService(id);
+      if (activeTab === 'contacts') await api.admin.deleteContact(id);
+      else if (activeTab === 'services') await api.admin.deleteService(id);
       else if (activeTab === 'products') await api.admin.deleteProduct(id);
       else if (activeTab === 'projects') await api.admin.deleteProject(id);
       else if (activeTab === 'events') await api.admin.deleteEvent(id);
