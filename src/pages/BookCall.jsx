@@ -4,7 +4,7 @@ import { Calendar, PhoneCall, Loader2, AlertTriangle, CheckCircle2, ChevronDown 
 import { motion, AnimatePresence } from 'framer-motion';
 
 import SEO from '../components/SEO';
-import { submitBookCallForm } from '../services/googleSheets';
+import { api } from '../services/api';
 
 const BookCall = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
@@ -21,20 +21,27 @@ const BookCall = () => {
   const onSubmit = async (data) => {
     setSubmitting(true);
     try {
-      const res = await submitBookCallForm(data);
-      if (res.success) {
-        showToast(
-          'success',
-          res.mock
-            ? 'Success! (Demo Mode) Consultation scheduled in sheets.'
-            : 'Appointment requested! We will reach out with a meeting link shortly.'
-        );
+      const payload = {
+        name: data.fullName,
+        email: data.email,
+        phone: data.phone,
+        subject: data.serviceRequired || 'Consultation',
+        company: data.companyName || null,
+        service: data.serviceRequired || null,
+        projectDescription: data.projectDescription || null,
+        message: data.projectDescription || '',
+        type: 'book-call'
+      };
+
+      const res = await api.public.submitContact(payload);
+      if (res && res.success) {
+        showToast('success', res.message || 'Appointment requested! We will reach out with a meeting link shortly.');
         reset();
       } else {
-        showToast('error', 'Failed to request. Please try again.');
+        showToast('error', (res && res.error) || 'Failed to request. Please try again.');
       }
     } catch (error) {
-      showToast('error', 'Network error. Please check your connectivity.');
+      showToast('error', error.message || 'Network error. Please check your connectivity.');
     } finally {
       setSubmitting(false);
     }

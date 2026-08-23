@@ -30,14 +30,24 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
+    // Grouped dropdowns will be rendered below
+  ];
+
+  const solutions = [
     { name: 'Services', path: '/services' },
-    { name: 'Products', path: '/products' },
+    { name: 'Products', path: '/products' }
+  ];
+
+  const community = [
     { name: 'Events', path: '/events' },
     { name: 'Internships & Training', path: '/internships' },
-    { name: 'Testimonials', path: '/testimonials' },
-    { name: 'FAQ', path: '/faq' },
     { name: 'Gallery', path: '/gallery' },
+    { name: 'Testimonials', path: '/testimonials' }
+  ];
+
+  const company = [
+    { name: 'About', path: '/about' },
+    { name: 'FAQ', path: '/faq' },
     { name: 'Contact', path: '/contact' }
   ];
 
@@ -67,7 +77,7 @@ const Navbar = () => {
 
         {/* Nav Items */}
         <div className={`collapse navbar-collapse ${isOpen ? 'show' : ''}`} id="navbarNav">
-          <ul className="navbar-nav mx-auto mb-3 mb-xl-0 gap-1 gap-xl-2">
+          <ul className="navbar-nav mx-auto mb-3 mb-xl-0 gap-1 gap-xl-2 align-items-center">
             {navLinks.map((link) => (
               <li className="nav-item" key={link.name}>
                 <NavLink
@@ -81,8 +91,38 @@ const Navbar = () => {
                 </NavLink>
               </li>
             ))}
-          </ul>
 
+            {/* Solutions dropdown */}
+            <li className="nav-item dropdown">
+              <span className="nav-link nav-link-custom dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Solutions</span>
+              <ul className="dropdown-menu shadow-sm rounded p-3" style={{ minWidth: 220, zIndex: 2000 }}>
+                {solutions.map(item => (
+                  <li key={item.name}><Link to={item.path} className="dropdown-item">{item.name}</Link></li>
+                ))}
+              </ul>
+            </li>
+
+            {/* Community dropdown */}
+            <li className="nav-item dropdown">
+              <span className="nav-link nav-link-custom dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Community</span>
+              <ul className="dropdown-menu shadow-sm rounded p-3" style={{ minWidth: 220, zIndex: 2000 }}>
+                {community.map(item => (
+                  <li key={item.name}><Link to={item.path} className="dropdown-item">{item.name}</Link></li>
+                ))}
+              </ul>
+            </li>
+
+            {/* Company dropdown */}
+            <li className="nav-item dropdown">
+              <span className="nav-link nav-link-custom dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Company</span>
+              <ul className="dropdown-menu shadow-sm rounded p-3" style={{ minWidth: 220, zIndex: 2000 }}>
+                {company.map(item => (
+                  <li key={item.name}><Link to={item.path} className="dropdown-item">{item.name}</Link></li>
+                ))}
+              </ul>
+            </li>
+
+          </ul>
           {/* Book A Call CTA */}
           <div className="d-flex align-items-center mt-3 mt-xl-0">
             <Link to="/book-call" className="btn-gradient navbar-btn">

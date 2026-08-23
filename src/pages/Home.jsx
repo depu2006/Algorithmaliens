@@ -1,19 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Star, Calendar, Award, CheckCircle, ChevronRight, Activity, Terminal, Shield, Sparkles, ChevronDown } from 'lucide-react';
+import { ArrowRight, Star, Calendar, Award, CheckCircle, ChevronRight, Activity, Terminal, Shield, Sparkles, ChevronDown, Loader2 } from 'lucide-react';
 import * as Icons from 'lucide-react';
 
 import SEO from '../components/SEO';
 import AnimatedCounter from '../components/AnimatedCounter';
 import Logo from '../components/Logo';
-
-// JSON data
-import servicesData from '../data/services.json';
-import eventsData from '../data/events.json';
-import productsData from '../data/products.json';
-import testimonialsData from '../data/testimonials.json';
-import statsData from '../data/statistics.json';
+import { api } from '../services/api';
 
 // Unsplash Images Map for High-Vibrancy styling
 const serviceImages = {
@@ -30,18 +24,31 @@ const productImages = {
 };
 
 const Home = () => {
-  const videoRef = React.useRef(null);
-  const [videoError, setVideoError] = React.useState(false);
+  const videoRef = useRef(null);
+  const [videoError, setVideoError] = useState(false);
 
-  React.useEffect(() => {
+  // Dynamic data from backend
+  const [servicesData, setServicesData] = useState([]);
+  const [eventsData, setEventsData] = useState([]);
+  const [productsData, setProductsData] = useState([]);
+  const [testimonialsData, setTestimonialsData] = useState([]);
+  const [statsData, setStatsData] = useState([]);
+
+  useEffect(() => {
     if (videoRef.current) {
       videoRef.current.muted = true;
-      // Force programmatic play call to ensure autoplay starts successfully
       videoRef.current.play().catch((err) => {
         console.warn("Autoplay prevented or video load failed:", err);
         setVideoError(true);
       });
     }
+
+    // Fetch all dynamic homepage content in parallel
+    api.public.getServices().then(setServicesData).catch(console.error);
+    api.public.getEvents().then(setEventsData).catch(console.error);
+    api.public.getProducts().then(setProductsData).catch(console.error);
+    api.public.getTestimonials().then(setTestimonialsData).catch(console.error);
+    api.public.getStats().then(setStatsData).catch(console.error);
   }, []);
 
   const containerVariants = {
@@ -307,7 +314,12 @@ const Home = () => {
 
           {/* Bento-style Services Grid */}
           <div className="row g-4">
-            {servicesData.map((service) => {
+            {servicesData.length === 0 ? (
+              <div className="col-12 text-center py-5">
+                <Loader2 className="animate-spin text-gradient mb-3" size={28} />
+                <p className="text-muted-custom small">Loading services...</p>
+              </div>
+            ) : servicesData.map((service) => {
               const IconComponent = Icons[service.icon] || Icons.Cpu;
               return (
                 <div className="col-lg-3 col-md-6" key={service.id}>
@@ -334,7 +346,7 @@ const Home = () => {
                     
                     {/* Compact Tag Chips */}
                     <div className="d-flex flex-wrap gap-1.5 mb-4">
-                      {service.items.slice(0, 3).map((item, idx) => (
+                      {(service.items || []).slice(0, 3).map((item, idx) => (
                         <span key={idx} className="badge rounded-pill" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid var(--glass-border)', fontSize: '0.72rem', color: 'var(--white)' }}>
                           {item}
                         </span>
@@ -365,7 +377,12 @@ const Home = () => {
           </div>
 
           <div className="row g-4 justify-content-center">
-            {productsData.map((prod) => (
+            {productsData.length === 0 ? (
+              <div className="col-12 text-center py-5">
+                <Loader2 className="animate-spin text-gradient mb-3" size={28} />
+                <p className="text-muted-custom small">Loading products...</p>
+              </div>
+            ) : productsData.map((prod) => (
               <div className="col-lg-6" key={prod.id}>
                 <motion.div 
                   className="card-custom p-5 d-flex flex-column h-100 justify-content-between"
@@ -377,7 +394,7 @@ const Home = () => {
                   <div>
                     {/* Header Image */}
                     <div className="card-image-wrap mb-4" style={{ height: '200px' }}>
-                      <img src={productImages[prod.id]} alt={prod.title} />
+                      <img src={prod.image || productImages[prod.id]} alt={prod.title} />
                       <div className="position-absolute top-0 start-0 m-3">
                         <div className="icon-3d-wrapper" style={{ width: '42px', height: '42px' }}>
                           {prod.id === 'academy' ? (
@@ -395,11 +412,11 @@ const Home = () => {
                     <h3 className="fw-bold mb-3 text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>{prod.title}</h3>
                     <p className="text-muted-custom mb-4" style={{ fontSize: '0.95rem' }}>{prod.description}</p>
                     
-                    {/* Key features represented with horizontal chips */}
+                    {/* Key features */}
                     <div className="mb-4">
                       <h6 className="fw-bold text-white mb-2.5" style={{ fontSize: '0.85rem' }}>Core Modules:</h6>
                       <div className="d-flex flex-wrap gap-2">
-                        {prod.features.slice(0, 4).map((feat, idx) => (
+                        {(prod.features || []).slice(0, 4).map((feat, idx) => (
                           <span key={idx} className="badge rounded px-2.5 py-1.5" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid var(--glass-border)', fontSize: '0.78rem', color: 'var(--white)' }}>
                             <CheckCircle size={10} className="text-gradient-cyan me-1.5" />
                             {feat}
@@ -426,7 +443,11 @@ const Home = () => {
       <section className="section-padding">
         <div className="container">
           <div className="row g-4">
-            {statsData.map((stat) => (
+            {statsData.length === 0 ? (
+              <div className="col-12 text-center py-4">
+                <Loader2 className="animate-spin text-gradient" size={24} />
+              </div>
+            ) : statsData.map((stat) => (
               <div className="col-lg-3 col-sm-6" key={stat.id}>
                 <motion.div 
                   className="stat-card"
@@ -460,7 +481,12 @@ const Home = () => {
           </div>
 
           <div className="row g-4">
-            {eventsData.slice(0, 2).map((event) => (
+            {eventsData.length === 0 ? (
+              <div className="col-12 text-center py-5">
+                <Loader2 className="animate-spin text-gradient mb-3" size={28} />
+                <p className="text-muted-custom small">Loading events...</p>
+              </div>
+            ) : eventsData.slice(0, 2).map((event) => (
               <div className="col-lg-6" key={event.id}>
                 <motion.div 
                   className="card-custom p-0 overflow-hidden"
@@ -496,7 +522,7 @@ const Home = () => {
                     {/* Highlights */}
                     <div className="mb-4 pt-3 border-top" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
                       <div className="d-flex flex-wrap gap-2">
-                        {event.highlights.slice(0, 3).map((hl, i) => (
+                        {(event.highlights || []).slice(0, 3).map((hl, i) => (
                           <span key={i} className="badge text-white" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid var(--glass-border)', fontSize: '0.72rem' }}>
                             ✓ {hl}
                           </span>
@@ -543,7 +569,16 @@ const Home = () => {
             </div>
 
             <div className="carousel-inner px-2 py-3">
-              {testimonialsData.slice(0, 4).map((test, index) => (
+              {testimonialsData.length === 0 ? (
+                <div className="carousel-item active">
+                  <div className="row justify-content-center">
+                    <div className="col-12 text-center py-5">
+                      <Loader2 className="animate-spin text-gradient mb-3" size={28} />
+                      <p className="text-muted-custom small">Loading testimonials...</p>
+                    </div>
+                  </div>
+                </div>
+              ) : testimonialsData.slice(0, 4).map((test, index) => (
                 <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={test.id}>
                   <div className="row justify-content-center">
                     <div className="col-lg-7">

@@ -5,7 +5,7 @@ import { LinkedIn as Linkedin, Twitter, GitHub as Github } from '../components/S
 import { motion, AnimatePresence } from 'framer-motion';
 
 import SEO from '../components/SEO';
-import { submitContactForm } from '../services/googleSheets';
+import { api } from '../services/api';
 
 const Contact = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
@@ -22,20 +22,23 @@ const Contact = () => {
   const onSubmit = async (data) => {
     setSubmitting(true);
     try {
-      const res = await submitContactForm(data);
-      if (res.success) {
-        showToast(
-          'success',
-          res.mock 
-            ? 'Success! (Demo Mode) Form data simulated successfully.' 
-            : 'Thank you! Your message has been saved. We will contact you soon.'
-        );
+      const payload = {
+        name: data.fullName,
+        email: data.email,
+        phone: data.phone,
+        subject: data.subject,
+        message: data.message,
+        type: 'contact'
+      };
+      const res = await api.public.submitContact(payload);
+      if (res && res.success) {
+        showToast('success', res.message || 'Thank you! Your message has been saved. We will contact you soon.');
         reset();
       } else {
-        showToast('error', 'Submission failed. Please try again.');
+        showToast('error', (res && res.error) || 'Submission failed. Please try again.');
       }
     } catch (error) {
-      showToast('error', 'Something went wrong. Please check your internet and try again.');
+      showToast('error', error.message || 'Something went wrong. Please check your internet and try again.');
     } finally {
       setSubmitting(false);
     }

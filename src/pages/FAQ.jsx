@@ -1,11 +1,25 @@
-import React, { useState } from 'react';
-import { Search, HelpCircle, ChevronDown } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Search, HelpCircle, ChevronDown, Loader2 } from 'lucide-react';
 
 import SEO from '../components/SEO';
-import faqData from '../data/faq.json';
+import { api } from '../services/api';
 
 const FAQ = () => {
+  const [faqData, setFaqData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    api.public.getFAQ()
+      .then(data => {
+        setFaqData(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
 
   const filteredFAQ = faqData.filter((faq) => {
     return faq.question.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -67,7 +81,13 @@ const FAQ = () => {
             </div>
 
             {/* Q&A Bento Grid (No accordions) */}
-            {filteredFAQ.length > 0 ? (
+            {loading ? (
+              <div className="text-center py-5 card-custom align-items-center">
+                <Loader2 className="animate-spin text-gradient mb-3" size={32} />
+                <h5 className="fw-bold text-white mb-1">Loading FAQ Data</h5>
+                <p className="text-muted-custom mb-0 small">Please wait while we connect to the database...</p>
+              </div>
+            ) : filteredFAQ.length > 0 ? (
               <div className="row g-4">
                 {filteredFAQ.map((faq) => (
                   <div className="col-md-6" key={faq.id}>

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { CheckCircle, Award, ArrowRight, BookOpen, ShieldCheck, GraduationCap, Briefcase, Activity } from 'lucide-react';
+import { CheckCircle, Award, ArrowRight, BookOpen, ShieldCheck, GraduationCap, Briefcase, Activity, Loader2 } from 'lucide-react';
 
 import SEO from '../components/SEO';
-import testimonialsData from '../data/testimonials.json';
+import { api } from '../services/api';
 
 // Unsplash Images for Internship tracks
 const trackImages = {
@@ -16,47 +16,35 @@ const trackImages = {
 };
 
 const Internships = () => {
-  const successStories = testimonialsData.filter(
-    (t) => t.category === 'internship' || t.category === 'training'
-  );
+  const [programs, setPrograms] = useState([]);
+  const [successStories, setSuccessStories] = useState([]);
+  const [loadingPrograms, setLoadingPrograms] = useState(true);
+  const [loadingTestimonials, setLoadingTestimonials] = useState(true);
 
-  const programs = [
-    {
-      id: "web-dev",
-      title: "Web Development",
-      description: "Master modern frontend libraries and backend databases. Learn state management, custom layouts, and API creation.",
-      duration: "3 - 6 Months",
-      skills: ["React.js", "Node.js", "Express", "Bootstrap 5", "MongoDB"]
-    },
-    {
-      id: "app-dev",
-      title: "App Development",
-      description: "Build robust, cross-platform Android and iOS mobile applications with native UI transitions and local data management.",
-      duration: "3 - 6 Months",
-      skills: ["React Native", "Flutter", "Firebase", "Redux Toolkit", "REST APIs"]
-    },
-    {
-      id: "ai-ml",
-      title: "AI & Machine Learning",
-      description: "Deep dive into model integration, large language models (LLMs), prompt engineering, and smart automation agents.",
-      duration: "3 Months",
-      skills: ["OpenAI API", "LangChain", "Python", "NumPy & Pandas", "Vector Databases"]
-    },
-    {
-      id: "python",
-      title: "Python Development",
-      description: "Acquire strong programming foundations. Build web scrapers, automated scripts, backend routers, and data analytics tools.",
-      duration: "2 - 4 Months",
-      skills: ["Python core", "Django", "Flask", "BeautifulSoup", "SQL databases"]
-    },
-    {
-      id: "full-stack",
-      title: "Full Stack Development",
-      description: "Become a complete developer. Take care of frontend styling, backend routing, server setups, cloud deployment, and CI/CD.",
-      duration: "6 Months",
-      skills: ["MERN Stack", "TypeScript", "Docker", "AWS Essentials", "Git & GitHub"]
-    }
-  ];
+  useEffect(() => {
+    api.public.getInternships()
+      .then(data => {
+        setPrograms(data);
+        setLoadingPrograms(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoadingPrograms(false);
+      });
+
+    api.public.getTestimonials()
+      .then(data => {
+        const filtered = data.filter(
+          (t) => t.category === 'internship' || t.category === 'training'
+        );
+        setSuccessStories(filtered);
+        setLoadingTestimonials(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoadingTestimonials(false);
+      });
+  }, []);
 
   const steps = [
     { num: "01", label: "Apply Online", text: "Submit your details and select your preferred track." },
@@ -111,54 +99,65 @@ const Internships = () => {
             </div>
 
             <div className="row g-4">
-              {programs.map((prog) => (
-                <div className="col-lg-4 col-md-6" key={prog.id}>
-                  <div className="card-custom d-flex flex-column justify-content-between h-100">
-                    <div>
-                      {/* Visual Picture */}
-                      <div className="card-image-wrap" style={{ height: '180px', marginBottom: '1.5rem' }}>
-                        <img src={trackImages[prog.id]} alt={prog.title} />
-                      </div>
+              {loadingPrograms ? (
+                <div className="col-12 text-center py-5">
+                  <Loader2 className="animate-spin text-gradient mb-3" size={32} />
+                  <p className="text-muted-custom small">Loading internship tracks...</p>
+                </div>
+              ) : programs.length > 0 ? (
+                programs.map((prog) => (
+                  <div className="col-lg-4 col-md-6" key={prog.id}>
+                    <div className="card-custom d-flex flex-column justify-content-between h-100">
+                      <div>
+                        {/* Visual Picture */}
+                        <div className="card-image-wrap" style={{ height: '180px', marginBottom: '1.5rem' }}>
+                          <img src={trackImages[prog.id] || "https://images.unsplash.com/photo-1605379399642-870262d3d051?w=600"} alt={prog.title} />
+                        </div>
 
-                      <div className="d-flex justify-content-between align-items-start mb-3">
-                        <h4 className="fw-bold text-white mb-0" style={{ fontFamily: "'Outfit', sans-serif", fontSize: '1.2rem' }}>{prog.title}</h4>
-                        <span className="badge rounded-pill" style={{ background: 'rgba(255,255,255,0.05)', color: 'var(--accent-cyan)', border: '1px solid var(--glass-border)', fontSize: '0.72rem' }}>
-                          {prog.duration}
-                        </span>
-                      </div>
-                      
-                      <p className="text-muted-custom mb-4" style={{ fontSize: '0.88rem', lineHeight: '1.5' }}>{prog.description}</p>
-                      
-                      <div className="mb-4">
-                        <h6 className="fw-bold text-white mb-2.5 small text-uppercase" style={{ letterSpacing: '0.5px' }}>Core Technologies:</h6>
-                        <div className="d-flex flex-wrap gap-1.5">
-                          {prog.skills.map((skill) => (
-                            <span 
-                              key={skill}
-                              className="badge rounded" 
-                              style={{ 
-                                background: 'rgba(255, 255, 255, 0.04)', 
-                                color: 'var(--muted-text)',
-                                border: '1px solid var(--glass-border)',
-                                fontSize: '0.72rem'
-                              }}
-                            >
-                              {skill}
-                            </span>
-                          ))}
+                        <div className="d-flex justify-content-between align-items-start mb-3">
+                          <h4 className="fw-bold text-white mb-0" style={{ fontFamily: "'Outfit', sans-serif", fontSize: '1.2rem' }}>{prog.title}</h4>
+                          <span className="badge rounded-pill" style={{ background: 'rgba(255,255,255,0.05)', color: 'var(--accent-cyan)', border: '1px solid var(--glass-border)', fontSize: '0.72rem' }}>
+                            {prog.duration}
+                          </span>
+                        </div>
+                        
+                        <p className="text-muted-custom mb-4" style={{ fontSize: '0.88rem', lineHeight: '1.5' }}>{prog.description}</p>
+                        
+                        <div className="mb-4">
+                          <h6 className="fw-bold text-white mb-2.5 small text-uppercase" style={{ letterSpacing: '0.5px' }}>Core Technologies:</h6>
+                          <div className="d-flex flex-wrap gap-1.5">
+                            {prog.skills.map((skill) => (
+                              <span 
+                                key={skill}
+                                className="badge rounded" 
+                                style={{ 
+                                  background: 'rgba(255, 255, 255, 0.04)', 
+                                  color: 'var(--muted-text)',
+                                  border: '1px solid var(--glass-border)',
+                                  fontSize: '0.72rem'
+                                }}
+                              >
+                                {skill}
+                              </span>
+                            ))}
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div className="pt-3 border-top" style={{ borderColor: 'var(--glass-border)' }}>
-                      <Link to="/book-call" className="text-gradient-cyan text-decoration-none fw-semibold d-inline-flex align-items-center gap-1" style={{ fontSize: '0.9rem' }}>
-                        <span>Apply for this track</span>
-                        <ArrowRight size={14} />
-                      </Link>
+                      <div className="pt-3 border-top" style={{ borderColor: 'var(--glass-border)' }}>
+                        <Link to="/book-call" className="text-gradient-cyan text-decoration-none fw-semibold d-inline-flex align-items-center gap-1" style={{ fontSize: '0.9rem' }}>
+                          <span>Apply for this track</span>
+                          <ArrowRight size={14} />
+                        </Link>
+                      </div>
                     </div>
                   </div>
+                ))
+              ) : (
+                <div className="col-12 text-center py-5">
+                  <p className="text-muted-custom">No internship tracks registered yet.</p>
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </section>
@@ -256,29 +255,38 @@ const Internships = () => {
               </p>
             </div>
 
-            <div className="row g-4">
-              {successStories.map((story) => (
-                <div className="col-md-6" key={story.id}>
-                  <div className="card-custom p-4 d-flex flex-column justify-content-between h-100">
-                    <p className="text-white small italic mb-4" style={{ lineHeight: '1.6' }}>
-                      "{story.feedback}"
-                    </p>
-                    <div className="d-flex align-items-center gap-3 pt-3 border-top" style={{ borderColor: 'var(--glass-border)' }}>
-                      <img 
-                        src={story.photo} 
-                        alt={story.name} 
-                        className="rounded-circle border border-secondary"
-                        style={{ width: '40px', height: '40px', objectFit: 'cover' }}
-                      />
-                      <div>
-                        <h6 className="fw-bold text-white mb-0" style={{ fontSize: '0.9rem' }}>{story.name}</h6>
-                        <small className="text-gradient-cyan text-uppercase" style={{ fontSize: '0.7rem', letterSpacing: '0.5px' }}>{story.role}</small>
+              {loadingTestimonials ? (
+                <div className="col-12 text-center py-5">
+                  <Loader2 className="animate-spin text-gradient mb-3" size={32} />
+                  <p className="text-muted-custom small">Loading graduate reviews...</p>
+                </div>
+              ) : successStories.length > 0 ? (
+                successStories.map((story) => (
+                  <div className="col-md-6" key={story.id}>
+                    <div className="card-custom p-4 d-flex flex-column justify-content-between h-100">
+                      <p className="text-white small italic mb-4" style={{ lineHeight: '1.6' }}>
+                        "{story.feedback}"
+                      </p>
+                      <div className="d-flex align-items-center gap-3 pt-3 border-top" style={{ borderColor: 'var(--glass-border)' }}>
+                        <img 
+                          src={story.photo} 
+                          alt={story.name} 
+                          className="rounded-circle border border-secondary"
+                          style={{ width: '40px', height: '40px', objectFit: 'cover' }}
+                        />
+                        <div>
+                          <h6 className="fw-bold text-white mb-0" style={{ fontSize: '0.9rem' }}>{story.name}</h6>
+                          <small className="text-gradient-cyan text-uppercase" style={{ fontSize: '0.7rem', letterSpacing: '0.5px' }}>{story.role}</small>
+                        </div>
                       </div>
                     </div>
                   </div>
+                ))
+              ) : (
+                <div className="col-12 text-center py-5">
+                  <p className="text-muted-custom">No reviews available yet.</p>
                 </div>
-              ))}
-            </div>
+              )}
 
             {/* Bottom CTA banner */}
             <div className="card-custom p-5 text-center mt-5 align-items-center" style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%)' }}>

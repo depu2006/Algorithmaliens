@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle, ChevronDown, Cpu, Zap } from 'lucide-react';
+import { ArrowRight, CheckCircle, ChevronDown, Cpu, Zap, Loader2 } from 'lucide-react';
 import * as Icons from 'lucide-react';
 
 import SEO from '../components/SEO';
-import servicesData from '../data/services.json';
+import { api } from '../services/api';
 
 // Service pictures map
 const serviceImages = {
@@ -16,6 +16,20 @@ const serviceImages = {
 };
 
 const Services = () => {
+  const [servicesData, setServicesData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    api.public.getServices()
+      .then(data => {
+        setServicesData(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.12 } }
@@ -68,7 +82,14 @@ const Services = () => {
               initial="hidden"
               animate="visible"
             >
-              {servicesData.map((service, index) => {
+              {loading ? (
+                <div className="text-center py-5 card-custom align-items-center">
+                  <Loader2 className="animate-spin text-gradient mb-3" size={32} />
+                  <h5 className="fw-bold text-white mb-1">Loading Services</h5>
+                  <p className="text-muted-custom mb-0 small">Connecting to our database...</p>
+                </div>
+              ) : servicesData.length > 0 ? (
+                servicesData.map((service, index) => {
                 const IconComponent = Icons[service.icon] || Icons.Cpu;
                 const isEven = index % 2 === 0;
 
@@ -167,7 +188,12 @@ const Services = () => {
                     </div>
                   </motion.div>
                 );
-              })}
+              })
+              ) : (
+                <div className="text-center py-5 card-custom align-items-center">
+                  <p className="text-muted-custom mb-0">No services registered yet.</p>
+                </div>
+              )}
             </motion.div>
           </div>
         </section>

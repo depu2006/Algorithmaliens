@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { CheckCircle, Users, Award, BookOpen, ChevronRight, HelpCircle, ChevronDown, Layers } from 'lucide-react';
+import { CheckCircle, Users, Award, BookOpen, ChevronRight, HelpCircle, ChevronDown, Layers, Loader2 } from 'lucide-react';
 
 import SEO from '../components/SEO';
-import productsData from '../data/products.json';
+import { api } from '../services/api';
 
 // Fixed anx-clubs ID mapping to ensure the image loads
 const productImages = {
@@ -13,6 +13,20 @@ const productImages = {
 };
 
 const Products = () => {
+  const [productsData, setProductsData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    api.public.getProducts()
+      .then(data => {
+        setProductsData(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.12 } }
@@ -66,26 +80,32 @@ const Products = () => {
               initial="hidden"
               animate="visible"
             >
-              {productsData.map((prod) => (
-                <div className="col-lg-6" key={prod.id}>
-                  <motion.div 
-                    className="card-custom p-5 d-flex flex-column h-100 justify-content-between"
-                    variants={cardVariants}
-                  >
-                    <div>
-                      {/* High-Resolution Picture */}
-                      <div className="card-image-wrap" style={{ height: '240px', marginBottom: '2rem' }}>
-                        <img src={productImages[prod.id]} alt={prod.title} />
-                        <div className="position-absolute top-0 start-0 m-3">
-                          <div className="icon-3d-wrapper" style={{ width: '42px', height: '42px' }}>
-                            {prod.id === 'academy' ? (
-                              <BookOpen size={18} className="text-white" />
-                            ) : (
-                              <Users size={18} className="text-white" />
-                            )}
+              {loading ? (
+                <div className="col-12 text-center py-5">
+                  <Loader2 className="animate-spin text-gradient mb-3" size={32} />
+                  <p className="text-muted-custom small">Loading products...</p>
+                </div>
+              ) : productsData.length > 0 ? (
+                productsData.map((prod) => (
+                  <div className="col-lg-6" key={prod.id}>
+                    <motion.div 
+                      className="card-custom p-5 d-flex flex-column h-100 justify-content-between"
+                      variants={cardVariants}
+                    >
+                      <div>
+                        {/* High-Resolution Picture */}
+                        <div className="card-image-wrap" style={{ height: '240px', marginBottom: '2rem' }}>
+                          <img src={prod.image || productImages[prod.id]} alt={prod.title} />
+                          <div className="position-absolute top-0 start-0 m-3">
+                            <div className="icon-3d-wrapper" style={{ width: '42px', height: '42px' }}>
+                              {prod.id === 'academy' ? (
+                                <BookOpen size={18} className="text-white" />
+                              ) : (
+                                <Users size={18} className="text-white" />
+                              )}
+                            </div>
                           </div>
                         </div>
-                      </div>
 
                       {/* Header */}
                       <div className="mb-4">
@@ -142,7 +162,12 @@ const Products = () => {
                     </div>
                   </motion.div>
                 </div>
-              ))}
+              ))
+            ) : (
+              <div className="col-12 text-center py-5">
+                <p className="text-muted-custom">No products registered yet.</p>
+              </div>
+            )}
             </motion.div>
           </div>
         </section>

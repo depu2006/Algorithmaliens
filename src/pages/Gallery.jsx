@@ -1,13 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Maximize2, Play, X, Info, ChevronDown, Image } from 'lucide-react';
+import { Maximize2, Play, X, Info, ChevronDown, Image, Loader2 } from 'lucide-react';
 
 import SEO from '../components/SEO';
-import galleryData from '../data/gallery.json';
+import { api } from '../services/api';
 
 const Gallery = () => {
   const [filter, setFilter] = useState('all');
   const [selectedMedia, setSelectedMedia] = useState(null);
+  const [galleryData, setGalleryData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    api.public.getGallery()
+      .then(data => {
+        setGalleryData(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
 
   const categories = [
     { value: 'all', label: 'All Media' },
@@ -92,7 +106,12 @@ const Gallery = () => {
               initial="hidden"
               animate="visible"
             >
-              {filteredData.length > 0 ? (
+              {loading ? (
+                <div className="col-12 text-center py-5">
+                  <Loader2 className="animate-spin text-gradient mb-3" size={32} />
+                  <p className="text-muted-custom small">Loading gallery...</p>
+                </div>
+              ) : filteredData.length > 0 ? (
                 filteredData.map((item) => (
                   <div className="col-lg-4 col-md-6 col-12" key={item.id}>
                     <motion.div 
@@ -148,6 +167,7 @@ const Gallery = () => {
                   <p className="text-muted-custom small">Currently, no items are tagged in this gallery group.</p>
                 </div>
               )}
+              
             </motion.div>
           </div>
         </section>

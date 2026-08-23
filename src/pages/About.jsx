@@ -1,12 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Compass, Eye, Heart, Shield, Flame, BookOpen, Users2, ArrowRight, ChevronDown, Sparkles } from 'lucide-react';
+import { Compass, Eye, Heart, Shield, Flame, BookOpen, Users2, ArrowRight, ChevronDown, Sparkles, Loader2 } from 'lucide-react';
 import { LinkedIn as Linkedin, Twitter, GitHub as Github } from '../components/SocialIcons';
 
 import SEO from '../components/SEO';
-import teamData from '../data/team.json';
+import { api } from '../services/api';
 
 const About = () => {
+  const [teamData, setTeamData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    api.public.getTeam()
+      .then(data => {
+        setTeamData(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
+
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
@@ -177,49 +192,66 @@ const About = () => {
             </div>
 
             <div className="row g-4 justify-content-center">
-              {teamData.map((member) => (
-                <div className="col-lg-4 col-md-6" key={member.id}>
-                  <motion.div
-                    className="card-custom p-0 overflow-hidden d-flex flex-column h-100"
-                    variants={cardVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.15 }}
-                  >
-                    {/* Photo area */}
-                    <div style={{ height: '320px', overflow: 'hidden', position: 'relative' }}>
-                      <img 
-                        src={member.photo} 
-                        alt={member.name}
-                        className="w-100 h-100"
-                        style={{ objectFit: 'cover' }}
-                      />
-                      <div className="position-absolute bottom-0 start-0 w-100 p-4" style={{ background: 'linear-gradient(to top, rgba(7,7,9,0.95), transparent)' }}>
-                        <span className="badge rounded-pill bg-secondary mb-1.5 px-3 py-1" style={{ fontSize: '0.75rem', background: 'var(--gradient-main) !important', border: 'none' }}>{member.role}</span>
-                        <h4 className="fw-bold text-white mb-0" style={{ fontFamily: "'Outfit', sans-serif", fontSize: '1.3rem' }}>{member.name}</h4>
-                      </div>
-                    </div>
-
-                    {/* Body bio */}
-                    <div className="p-4 d-flex flex-column justify-content-between flex-grow-1">
-                      <p className="text-muted-custom mb-4" style={{ fontSize: '0.9rem', lineHeight: '1.6' }}>{member.bio}</p>
-                      
-                      {/* Social networks links */}
-                      <div className="d-flex gap-3 pt-3 border-top" style={{ borderColor: 'var(--glass-border)' }}>
-                        <a href={member.social.linkedin} target="_blank" rel="noopener noreferrer" className="text-muted-custom hover-cyan" style={{ transition: 'color 0.2s' }}>
-                          <Linkedin size={18} />
-                        </a>
-                        <a href={member.social.twitter} target="_blank" rel="noopener noreferrer" className="text-muted-custom hover-cyan" style={{ transition: 'color 0.2s' }}>
-                          <Twitter size={18} />
-                        </a>
-                        <a href={member.social.github} target="_blank" rel="noopener noreferrer" className="text-muted-custom hover-cyan" style={{ transition: 'color 0.2s' }}>
-                          <Github size={18} />
-                        </a>
-                      </div>
-                    </div>
-                  </motion.div>
+              {loading ? (
+                <div className="col-12 text-center py-5">
+                  <Loader2 className="animate-spin text-gradient mb-3" size={32} />
+                  <p className="text-muted-custom small">Loading team members...</p>
                 </div>
-              ))}
+              ) : teamData.length > 0 ? (
+                teamData.map((member) => (
+                  <div className="col-lg-4 col-md-6" key={member.id}>
+                    <motion.div
+                      className="card-custom p-0 overflow-hidden d-flex flex-column h-100"
+                      variants={cardVariants}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true, amount: 0.15 }}
+                    >
+                      {/* Photo area */}
+                      <div style={{ height: '320px', overflow: 'hidden', position: 'relative' }}>
+                        <img 
+                          src={member.photo} 
+                          alt={member.name}
+                          className="w-100 h-100"
+                          style={{ objectFit: 'cover' }}
+                        />
+                        <div className="position-absolute bottom-0 start-0 w-100 p-4" style={{ background: 'linear-gradient(to top, rgba(7,7,9,0.95), transparent)' }}>
+                          <span className="badge rounded-pill bg-secondary mb-1.5 px-3 py-1" style={{ fontSize: '0.75rem', background: 'var(--gradient-main) !important', border: 'none' }}>{member.role}</span>
+                          <h4 className="fw-bold text-white mb-0" style={{ fontFamily: "'Outfit', sans-serif", fontSize: '1.3rem' }}>{member.name}</h4>
+                        </div>
+                      </div>
+
+                      {/* Body bio */}
+                      <div className="p-4 d-flex flex-column justify-content-between flex-grow-1">
+                        <p className="text-muted-custom mb-4" style={{ fontSize: '0.9rem', lineHeight: '1.6' }}>{member.bio}</p>
+                        
+                        {/* Social networks links */}
+                        <div className="d-flex gap-3 pt-3 border-top" style={{ borderColor: 'var(--glass-border)' }}>
+                          {member.social?.linkedin && (
+                            <a href={member.social.linkedin} target="_blank" rel="noopener noreferrer" className="text-muted-custom hover-cyan" style={{ transition: 'color 0.2s' }}>
+                              <Linkedin size={18} />
+                            </a>
+                          )}
+                          {member.social?.twitter && (
+                            <a href={member.social.twitter} target="_blank" rel="noopener noreferrer" className="text-muted-custom hover-cyan" style={{ transition: 'color 0.2s' }}>
+                              <Twitter size={18} />
+                            </a>
+                          )}
+                          {member.social?.github && (
+                            <a href={member.social.github} target="_blank" rel="noopener noreferrer" className="text-muted-custom hover-cyan" style={{ transition: 'color 0.2s' }}>
+                              <Github size={18} />
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </motion.div>
+                  </div>
+                ))
+              ) : (
+                <div className="col-12 text-center py-5">
+                  <p className="text-muted-custom">No team members registered yet.</p>
+                </div>
+              )}
             </div>
           </div>
         </section>

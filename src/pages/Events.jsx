@@ -1,12 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, Award, Star, X, ZoomIn, ChevronDown } from 'lucide-react';
+import { Calendar, Award, Star, X, ZoomIn, ChevronDown, Loader2 } from 'lucide-react';
 
 import SEO from '../components/SEO';
-import eventsData from '../data/events.json';
+import { api } from '../services/api';
 
 const Events = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [eventsData, setEventsData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    api.public.getEvents()
+      .then(data => {
+        setEventsData(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -61,7 +75,13 @@ const Events = () => {
               initial="hidden"
               animate="visible"
             >
-              {eventsData.map((event) => (
+              {loading ? (
+                <div className="col-12 text-center py-5">
+                  <Loader2 className="animate-spin text-gradient mb-3" size={32} />
+                  <p className="text-muted-custom small">Loading events...</p>
+                </div>
+              ) : eventsData.length > 0 ? (
+                eventsData.map((event) => (
                 <div className="col-12" key={event.id}>
                   <motion.div 
                     className="card-custom p-0 overflow-hidden"
@@ -177,7 +197,12 @@ const Events = () => {
                     </div>
                   </motion.div>
                 </div>
-              ))}
+                ))
+              ) : (
+                <div className="col-12 text-center py-5">
+                  <p className="text-muted-custom">No events registered yet.</p>
+                </div>
+              )}
             </motion.div>
           </div>
         </section>
