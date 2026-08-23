@@ -290,7 +290,7 @@ const Admin = () => {
                 <input 
                   type="text" 
                   className="form-control form-control-custom" 
-                  placeholder="info@algorithmaliens.com"
+                  placeholder="Enter System ID"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   required 
