@@ -242,16 +242,25 @@ export async function initDb() {
   `);
 
   // 2. Seed Admin User
-  const adminExists = await query.get("SELECT * FROM users WHERE username = ?", ["admin"]);
+  const defaultAdminUsername = process.env.ADMIN_DEFAULT_USERNAME || "info@algorithmaliens.com";
+  
+  // Migrate legacy 'admin' username to 'info@algorithmaliens.com' if present
+  const legacyAdmin = await query.get("SELECT * FROM users WHERE username = ?", ["admin"]);
+  if (legacyAdmin) {
+    await query.run("UPDATE users SET username = ? WHERE id = ?", [defaultAdminUsername, legacyAdmin.id]);
+    console.log(`[DB] Updated legacy admin username to ${defaultAdminUsername}`);
+  }
+
+  const adminExists = await query.get("SELECT * FROM users WHERE username = ?", [defaultAdminUsername]);
   if (!adminExists) {
     const defaultPassword = process.env.ADMIN_DEFAULT_PASSWORD || "admin123";
     const salt = bcrypt.genSaltSync(10);
     const passwordHash = bcrypt.hashSync(defaultPassword, salt);
     await query.run(
       "INSERT INTO users (username, passwordHash, role) VALUES (?, ?, ?)",
-      ["admin", passwordHash, "admin"]
+      [defaultAdminUsername, passwordHash, "admin"]
     );
-    console.log(`[DB] Seeded default admin user (username: admin) — password not logged for security.`);
+    console.log(`[DB] Seeded default admin user (username: ${defaultAdminUsername}).`);
   }
 
   // 3. Seed dynamic content tables if empty

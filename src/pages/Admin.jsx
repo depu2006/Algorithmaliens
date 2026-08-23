@@ -290,7 +290,7 @@ const Admin = () => {
                 <input 
                   type="text" 
                   className="form-control form-control-custom" 
-                  placeholder="admin"
+                  placeholder="info@algorithmaliens.com"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   required 
@@ -345,7 +345,7 @@ const Admin = () => {
           <div className="text-center mt-3">
             <button className="btn btn-link text-muted-custom small" onClick={async (e) => {
               e.preventDefault();
-              const usernameToReset = username || 'admin';
+              const usernameToReset = username || 'info@algorithmaliens.com';
               try {
                 const res = await api.admin.forgotPassword(usernameToReset);
                 if (res.token) {
@@ -368,8 +368,8 @@ const Admin = () => {
                     const res = await api.admin.resetPassword(resetTokenInput, resetNewPassword);
                     if (!res || res.error) throw new Error(res?.error || 'Failed to reset password');
                     setResetSuccess(res.message || 'Password reset successfully. Logging you in...');
-                    // Attempt to login automatically with provided username (or default 'admin')
-                    const usernameToUse = username || 'admin';
+                    // Attempt to login automatically with provided username (or default 'info@algorithmaliens.com')
+                    const usernameToUse = username || 'info@algorithmaliens.com';
                     try {
                       await api.admin.login(usernameToUse, resetNewPassword);
                       setIsLoggedIn(true);
