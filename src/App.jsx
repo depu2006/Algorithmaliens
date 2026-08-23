@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import { Loader2 } from 'lucide-react';
+import { ThemeProvider } from './context/ThemeContext';
 
 // Lazy loading pages for optimized performance (code splitting)
 const Home = lazy(() => import('./pages/Home'));
@@ -30,28 +31,31 @@ const PageLoader = () => (
 
 function App() {
   return (
-    <Router>
-      <MainLayout>
-        <Suspense fallback={<PageLoader />}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/internships" element={<Internships />} />
-            <Route path="/testimonials" element={<Testimonials />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/book-call" element={<BookCall />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
-      </MainLayout>
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <MainLayout>
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/events" element={<Events />} />
+              <Route path="/internships" element={<Internships />} />
+              <Route path="/testimonials" element={<Testimonials />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/gallery" element={<Gallery />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/book-call" element={<BookCall />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </MainLayout>
+      </Router>
+    </ThemeProvider>
   );
 }
 
 export default App;
+

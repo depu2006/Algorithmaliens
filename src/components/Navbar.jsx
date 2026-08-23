@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import Logo from './Logo';
-import { Menu, X, PhoneCall } from 'lucide-react';
+import { Menu, X, PhoneCall, Sun, Moon } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const { theme, toggleTheme } = useTheme();
 
   // Handle scroll event to add background shadow/shrink navbar
   useEffect(() => {
@@ -56,7 +58,7 @@ const Navbar = () => {
       <div className="container-fluid px-lg-5 px-3">
         {/* Brand Logo */}
         <Link to="/" className="navbar-brand me-4">
-          <Logo height={42} showText={true} textLight={true} />
+          <Logo height={42} showText={true} textLight={theme === 'dark'} />
         </Link>
 
         {/* Mobile Toggle Button */}
@@ -123,8 +125,37 @@ const Navbar = () => {
             </li>
 
           </ul>
-          {/* Book A Call CTA */}
-          <div className="d-flex align-items-center mt-3 mt-xl-0">
+          {/* Book A Call CTA + Theme Toggle */}
+          <div className="d-flex align-items-center gap-2 mt-3 mt-xl-0">
+            {/* Theme Toggle Button */}
+            <button
+              id="theme-toggle-btn"
+              onClick={toggleTheme}
+              title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              style={{
+                background: theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)',
+                border: theme === 'dark' ? '1px solid rgba(255,255,255,0.12)' : '1px solid rgba(0,0,0,0.1)',
+                color: theme === 'dark' ? '#E5E7EB' : '#374151',
+                borderRadius: '8px',
+                width: '40px',
+                height: '40px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                transition: 'all 0.25s ease',
+                flexShrink: 0,
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = theme === 'dark' ? 'rgba(255,255,255,0.14)' : 'rgba(0,0,0,0.1)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)';
+              }}
+            >
+              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+
             <Link to="/book-call" className="btn-gradient navbar-btn">
               <PhoneCall size={18} />
               <span>Book A Call</span>
@@ -137,3 +168,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
