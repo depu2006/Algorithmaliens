@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import { sendResetEmail } from '../utils/mailer.js';
 import { query } from '../db/db.js';
+import { saveToFirestore, deleteFromFirestore } from '../db/firebaseAdmin.js';
+
 
 // --- AUTHENTICATION ---
 export async function login(req, res) {
@@ -179,6 +181,7 @@ export async function updateContactStatus(req, res) {
     }
 
     await query.run("UPDATE contacts SET status = ? WHERE id = ?", [status, id]);
+    saveToFirestore('contacts', id, { status });
     res.json({ success: true, message: 'Status updated successfully' });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -189,6 +192,7 @@ export async function deleteContact(req, res) {
   try {
     const { id } = req.params;
     await query.run("DELETE FROM contacts WHERE id = ?", [id]);
+    deleteFromFirestore('contacts', id);
     res.json({ success: true, message: 'Contact deleted successfully' });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -227,6 +231,7 @@ export async function createService(req, res) {
         orderIndex || 0
       ]
     );
+    saveToFirestore('services', id, req.body);
     res.json({ success: true, id });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -252,6 +257,7 @@ export async function updateService(req, res) {
         id
       ]
     );
+    saveToFirestore('services', id, { ...req.body, id });
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -262,6 +268,7 @@ export async function deleteService(req, res) {
   try {
     const { id } = req.params;
     await query.run("DELETE FROM services WHERE id = ?", [id]);
+    deleteFromFirestore('services', id);
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -298,6 +305,7 @@ export async function createProduct(req, res) {
         orderIndex || 0
       ]
     );
+    saveToFirestore('products', id, req.body);
     res.json({ success: true, id });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -322,6 +330,7 @@ export async function updateProduct(req, res) {
         id
       ]
     );
+    saveToFirestore('products', id, { ...req.body, id });
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -332,6 +341,7 @@ export async function deleteProduct(req, res) {
   try {
     const { id } = req.params;
     await query.run("DELETE FROM products WHERE id = ?", [id]);
+    deleteFromFirestore('products', id);
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -369,6 +379,7 @@ export async function createProject(req, res) {
         orderIndex || 0
       ]
     );
+    saveToFirestore('projects', id, req.body);
     res.json({ success: true, id });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -394,6 +405,7 @@ export async function updateProject(req, res) {
         id
       ]
     );
+    saveToFirestore('projects', id, { ...req.body, id });
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -404,6 +416,7 @@ export async function deleteProject(req, res) {
   try {
     const { id } = req.params;
     await query.run("DELETE FROM projects WHERE id = ?", [id]);
+    deleteFromFirestore('projects', id);
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -441,6 +454,7 @@ export async function createEvent(req, res) {
         orderIndex || 0
       ]
     );
+    saveToFirestore('events', id, req.body);
     res.json({ success: true, id });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -466,6 +480,7 @@ export async function updateEvent(req, res) {
         id
       ]
     );
+    saveToFirestore('events', id, { ...req.body, id });
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -476,6 +491,7 @@ export async function deleteEvent(req, res) {
   try {
     const { id } = req.params;
     await query.run("DELETE FROM events WHERE id = ?", [id]);
+    deleteFromFirestore('events', id);
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -500,6 +516,7 @@ export async function createGalleryItem(req, res) {
        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
       [id, title, category, type || 'image', url || '', description || '', isEnabled !== undefined ? isEnabled : 1, orderIndex || 0]
     );
+    saveToFirestore('gallery', id, req.body);
     res.json({ success: true, id });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -516,6 +533,7 @@ export async function updateGalleryItem(req, res) {
        WHERE id = ?`,
       [title, category, type, url, description, isEnabled !== undefined ? isEnabled : 1, orderIndex || 0, id]
     );
+    saveToFirestore('gallery', id, { ...req.body, id });
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -526,6 +544,7 @@ export async function deleteGalleryItem(req, res) {
   try {
     const { id } = req.params;
     await query.run("DELETE FROM gallery WHERE id = ?", [id]);
+    deleteFromFirestore('gallery', id);
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -550,6 +569,7 @@ export async function createTestimonial(req, res) {
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [id, name, role, category, rating || 5, feedback, photo || '', isEnabled !== undefined ? isEnabled : 1, orderIndex || 0]
     );
+    saveToFirestore('testimonials', id, req.body);
     res.json({ success: true, id });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -566,6 +586,7 @@ export async function updateTestimonial(req, res) {
        WHERE id = ?`,
       [name, role, category, rating, feedback, photo, isEnabled !== undefined ? isEnabled : 1, orderIndex || 0, id]
     );
+    saveToFirestore('testimonials', id, { ...req.body, id });
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -576,6 +597,7 @@ export async function deleteTestimonial(req, res) {
   try {
     const { id } = req.params;
     await query.run("DELETE FROM testimonials WHERE id = ?", [id]);
+    deleteFromFirestore('testimonials', id);
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -600,6 +622,7 @@ export async function createFAQ(req, res) {
        VALUES (?, ?, ?, ?, ?)`,
       [id, question, answer, isEnabled !== undefined ? isEnabled : 1, orderIndex || 0]
     );
+    saveToFirestore('faq', id, req.body);
     res.json({ success: true, id });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -614,6 +637,7 @@ export async function updateFAQ(req, res) {
       `UPDATE faq SET question = ?, answer = ?, isEnabled = ?, orderIndex = ? WHERE id = ?`,
       [question, answer, isEnabled !== undefined ? isEnabled : 1, orderIndex || 0, id]
     );
+    saveToFirestore('faq', id, { ...req.body, id });
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -624,6 +648,7 @@ export async function deleteFAQ(req, res) {
   try {
     const { id } = req.params;
     await query.run("DELETE FROM faq WHERE id = ?", [id]);
+    deleteFromFirestore('faq', id);
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -656,6 +681,7 @@ export async function createTeamMember(req, res) {
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [id, name, role, bio, photo || '', linkedin || '', twitter || '', github || '', isEnabled !== undefined ? isEnabled : 1, orderIndex || 0]
     );
+    saveToFirestore('team', id, req.body);
     res.json({ success: true, id });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -672,6 +698,7 @@ export async function updateTeamMember(req, res) {
        WHERE id = ?`,
       [name, role, bio, photo, linkedin, twitter, github, isEnabled !== undefined ? isEnabled : 1, orderIndex || 0, id]
     );
+    saveToFirestore('team', id, { ...req.body, id });
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -682,6 +709,7 @@ export async function deleteTeamMember(req, res) {
   try {
     const { id } = req.params;
     await query.run("DELETE FROM team WHERE id = ?", [id]);
+    deleteFromFirestore('team', id);
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -706,6 +734,7 @@ export async function createStatistic(req, res) {
        VALUES (?, ?, ?, ?, ?, ?, ?)`,
       [id, value || 0, suffix || '', label, description || '', isEnabled !== undefined ? isEnabled : 1, orderIndex || 0]
     );
+    saveToFirestore('statistics', id, req.body);
     res.json({ success: true, id });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -722,6 +751,7 @@ export async function updateStatistic(req, res) {
        WHERE id = ?`,
       [value, suffix, label, description, isEnabled !== undefined ? isEnabled : 1, orderIndex || 0, id]
     );
+    saveToFirestore('statistics', id, { ...req.body, id });
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -732,6 +762,7 @@ export async function deleteStatistic(req, res) {
   try {
     const { id } = req.params;
     await query.run("DELETE FROM statistics WHERE id = ?", [id]);
+    deleteFromFirestore('statistics', id);
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -760,6 +791,7 @@ export async function createInternship(req, res) {
        VALUES (?, ?, ?, ?, ?, ?, ?)`,
       [id, title, description, duration, JSON.stringify(skills || []), isEnabled !== undefined ? isEnabled : 1, orderIndex || 0]
     );
+    saveToFirestore('internships', id, req.body);
     res.json({ success: true, id });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -776,6 +808,7 @@ export async function updateInternship(req, res) {
        WHERE id = ?`,
       [title, description, duration, JSON.stringify(skills || []), isEnabled !== undefined ? isEnabled : 1, orderIndex || 0, id]
     );
+    saveToFirestore('internships', id, { ...req.body, id });
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -786,6 +819,7 @@ export async function deleteInternship(req, res) {
   try {
     const { id } = req.params;
     await query.run("DELETE FROM internships WHERE id = ?", [id]);
+    deleteFromFirestore('internships', id);
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -815,9 +849,11 @@ export async function updateSettings(req, res) {
          ON CONFLICT(key) DO UPDATE SET value = excluded.value`,
         [key, String(value)]
       );
+      saveToFirestore('settings', key, { key, value: String(value) });
     }
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
+

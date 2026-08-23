@@ -3,19 +3,30 @@ import { Link } from 'react-router-dom';
 import Logo from './Logo';
 import { Mail, Phone, MapPin, Send, ChevronRight } from 'lucide-react';
 import { LinkedIn as Linkedin, Twitter, GitHub as Github } from './SocialIcons';
+import { api } from '../services/api';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
-  const handleSubscribe = (e) => {
+  const handleSubscribe = async (e) => {
     e.preventDefault();
     if (email) {
+      try {
+        await api.public.submitContact({
+          name: 'Newsletter Subscriber',
+          email,
+          subject: 'Newsletter Subscription',
+          message: `User subscribed to newsletter with email: ${email}`,
+          type: 'newsletter'
+        });
+      } catch (_) {}
       setSubscribed(true);
       setEmail('');
       setTimeout(() => setSubscribed(false), 4000);
     }
   };
+
 
   return (
     <footer className="footer-custom">

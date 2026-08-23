@@ -4,7 +4,8 @@ import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
 import multer from 'multer';
-import { initDb } from './db/db.js';
+import { initDb, query } from './db/db.js';
+import { syncAllToFirestore } from './db/firebaseAdmin.js';
 import { authenticateToken, authorizeAdmin } from './middleware/auth.js';
 import * as publicCtrl from './controllers/publicController.js';
 import * as adminCtrl from './controllers/adminController.js';
@@ -13,6 +14,7 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
 
 // Setup CORS
 app.use(cors({
@@ -184,6 +186,16 @@ app.put('/api/admin/settings', adminAuth, adminCtrl.updateSettings);
 // Admin change password
 app.put('/api/admin/change-password', adminAuth, adminCtrl.changePassword);
 
+// Manual sync route to push SQLite data to Firebase Firestore
+app.post('/api/admin/sync-firebase', adminAuth, async (req, res) => {
+  try {
+    await syncAllToFirestore(query);
+    res.json({ success: true, message: 'Sync with Firebase database triggered successfully.' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
 // Start server and initialize DB
 dbInitAndStart();
@@ -194,10 +206,16 @@ async function dbInitAndStart() {
     await initDb();
     console.log('[DB] Database initialized successfully.');
 
+    // Asynchronously trigger sync to Firebase Firestore if credentials are provided
+    syncAllToFirestore(query).catch(err => {
+      console.warn('[Firebase Sync] Background startup sync warning:', err.message);
+    });
+
     const server = app.listen(PORT, () => {
       console.log(`[Server] Express API server running on port ${PORT}`);
       console.log(`[Server] API base: http://localhost:${PORT}/api`);
     });
+
 
     // Handle port already in use — kill old process and retry
     server.on('error', (err) => {

@@ -1,4 +1,5 @@
 import { query } from '../db/db.js';
+import { saveToFirestore } from '../db/firebaseAdmin.js';
 
 export async function getServices(req, res) {
   try {
@@ -145,9 +146,9 @@ export async function submitContact(req, res) {
       return res.status(400).json({ error: 'Name, email and message are required' });
     }
 
-    const submissionType = type || 'contact'; // 'contact' or 'book-call'
+    const submissionType = type || 'contact'; // 'contact' or 'book-call' or 'newsletter'
 
-    await query.run(
+    const result = await query.run(
       `INSERT INTO contacts (name, email, phone, subject, company, service, projectDescription, message, type, status) 
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'new')`,
       [
@@ -163,8 +164,27 @@ export async function submitContact(req, res) {
       ]
     );
 
+    const contactData = {
+      id: result.id,
+      name,
+      email,
+      phone: phone || '',
+      subject: subject || '',
+      company: company || null,
+      service: service || null,
+      projectDescription: projectDescription || null,
+      message,
+      type: submissionType,
+      status: 'new',
+      createdAt: new Date().toISOString()
+    };
+
+    // Dual-write to Firebase Firestore
+    saveToFirestore('contacts', result.id, contactData);
+
     res.json({ success: true, message: 'Your message was submitted successfully!' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
+

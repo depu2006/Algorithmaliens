@@ -1,5 +1,9 @@
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
+// Optional Firebase-backed implementations
+import * as fb from './firebaseService';
+const USE_FIREBASE = import.meta.env.VITE_USE_FIREBASE === 'true';
+
 // Helper for authenticated headers
 const getAuthHeaders = () => {
   const token = localStorage.getItem('admin_token');
@@ -71,11 +75,13 @@ export const api = {
       return res.json();
     },
     async submitContact(data) {
+      const firestorePromise = fb.submitContactToFirestore(data).catch(err => console.warn('Client Firestore save notice:', err.message));
       const res = await fetch(`${API_BASE_URL}/public/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
+      await firestorePromise;
       if (!res.ok) {
         const err = await res.json();
         throw new Error(err.error || 'Failed to submit query');
@@ -114,6 +120,10 @@ export const api = {
     
     // Media Upload
     async uploadFile(file) {
+      if (USE_FIREBASE) {
+        // returns { url }
+        return fb.uploadFileToStorage(file);
+      }
       const formData = new FormData();
       formData.append('file', file);
       
@@ -132,11 +142,13 @@ export const api = {
 
     // Contact Inquiries
     async getContacts() {
+      if (USE_FIREBASE) return fb.getContactsFromFirestore();
       const res = await fetch(`${API_BASE_URL}/admin/contacts`, { headers: getAuthHeaders() });
       if (!res.ok) throw new Error('Unauthorized');
       return res.json();
     },
     async updateContactStatus(id, status) {
+      if (USE_FIREBASE) return fb.updateContactStatusInFirestore(id, status);
       const res = await fetch(`${API_BASE_URL}/admin/contacts/${id}`, {
         method: 'PUT',
         headers: getAuthHeaders(),
@@ -146,6 +158,7 @@ export const api = {
       return res.json();
     },
     async deleteContact(id) {
+      if (USE_FIREBASE) return fb.deleteContactFromFirestore(id);
       const res = await fetch(`${API_BASE_URL}/admin/contacts/${id}`, {
         method: 'DELETE',
         headers: getAuthHeaders()
