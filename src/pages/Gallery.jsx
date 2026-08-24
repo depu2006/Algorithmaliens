@@ -135,7 +135,7 @@ const Gallery = () => {
                               <Play fill="#FFFFFF" color="#FFFFFF" size={18} className="ms-0.5" />
                             </div>
                           </div>
-                          <video src={item.url} muted className="w-100 h-100" style={{ objectFit: 'cover', opacity: 0.35 }} />
+                          <video src={item.url} muted className="gallery-card-video w-100 h-100" style={{ objectFit: 'cover', opacity: 0.35 }} />
                         </div>
                       ) : (
                         <img 

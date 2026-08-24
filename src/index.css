@@ -114,7 +114,11 @@ html[data-theme='light'] body {
 
 /* Light Gallery cards use a readable overlay over image thumbnails */
 [data-theme='light'] .gallery-card-overlay {
-  background: linear-gradient(to top, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.82) 60%, transparent 100%) !important;
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.58) 52%, rgba(255, 255, 255, 0.08) 82%, transparent 100%) !important;
+}
+
+[data-theme='light'] .gallery-card-video {
+  opacity: 0.75 !important;
 }
 
 [data-theme='light'] .gallery-card-overlay h5,
