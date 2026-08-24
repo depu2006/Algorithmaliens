@@ -167,19 +167,7 @@ const Home = () => {
                 transition={{ duration: 0.8, ease: 'easeOut' }}
                 className="position-relative d-inline-block w-100"
               >
-                {/* Glowing backdrop circle */}
-                <div 
-                  className="position-absolute top-50 start-50 translate-middle rounded-circle" 
-                  style={{ 
-                    width: '350px', 
-                    height: '350px', 
-                    background: 'radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%)',
-                    zIndex: -1,
-                    filter: 'blur(50px)'
-                  }} 
-                />
-                
-                {/* Brand Logo video or animated fallback */}
+                {/* Brand Logo video or static fallback */}
                 <div style={{ maxWidth: '100%', margin: '0 auto' }}>
                   {!videoError ? (
                     <video
@@ -194,15 +182,14 @@ const Home = () => {
                         maxWidth: '360px',
                         height: 'auto',
                         borderRadius: '16px',
-                        mixBlendMode: 'screen',
-                        filter: 'drop-shadow(0 0 35px rgba(6, 182, 212, 0.45))'
+                        display: 'block'
                       }}
                     >
                       <source src="/animation_video.mp4" type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
                   ) : (
-                    <Logo height={280} showText={false} className="animated-hero-logo" />
+                    <Logo height={280} showText={false} />
                   )}
                 </div>
               </motion.div>
