@@ -485,21 +485,12 @@ export async function initDb() {
     },
     {
       id: "g2",
-      title: "Web Development Bootcamp",
+      title: "Craft Design Create: Mastering Canva",
       category: "workshops",
       type: "image",
-      url: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800",
-      description: "Students collaborating during an intensive hands-on frontend web application coding sprint.",
+      url: "/images/canva_workshop.jpeg",
+      description: "A Canva workshop hosted by IEEE MVSR Student Branch and IEEE Computer Society on May 1, 2025.",
       orderIndex: 2
-    },
-    {
-      id: "g3",
-      title: "Intern Project Showcase",
-      category: "internships",
-      type: "image",
-      url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800",
-      description: "Academy interns presenting their AI and Web solutions to the evaluation panel.",
-      orderIndex: 3
     },
     {
       id: "g4",
@@ -572,6 +563,15 @@ export async function initDb() {
       url: "/videos/video3.mp4",
       description: "An employee sharing their experience working with AlgorithmAliens during the internship.",
       orderIndex: 11
+    },
+    {
+      id: "g12",
+      title: "Students Joined Canva Workshop",
+      category: "workshops",
+      type: "image",
+      url: "/images/students_joined.jpeg",
+      description: "Students participating in the Craft Design Create: Mastering Canva workshop.",
+      orderIndex: 12
     }
   ]);
 
