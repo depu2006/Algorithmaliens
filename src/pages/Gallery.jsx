@@ -148,7 +148,7 @@ const Gallery = () => {
 
                       {/* Hover Overlay */}
                       <div 
-                        className="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end p-4" 
+                        className="gallery-card-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end p-4" 
                         style={{ 
                           background: 'linear-gradient(to top, rgba(11,11,12,0.96) 0%, rgba(11,11,12,0.4) 60%, transparent 100%)',
                           transition: 'opacity 0.2s ease',
@@ -223,7 +223,7 @@ const Gallery = () => {
                 )}
 
                 {/* Information Overlay */}
-                <div className="mt-3 p-3.5 rounded" style={{ background: 'rgba(11, 11, 12, 0.9)', border: '1px solid var(--glass-border)' }}>
+                <div className="gallery-lightbox-info mt-3 p-3.5 rounded" style={{ background: 'rgba(11, 11, 12, 0.9)', border: '1px solid var(--glass-border)' }}>
                   <span className="badge text-uppercase mb-1.5" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid var(--glass-border)', color: 'var(--accent-cyan)', fontSize: '0.68rem' }}>
                     {selectedMedia.category}
                   </span>
