@@ -248,6 +248,10 @@ html[data-theme='light'] body {
   color: var(--accent-cyan);
 }
 
+[data-theme='light'] .footer-custom .logo-brand-name {
+  color: #0D0D12 !important;
+}
+
 /* Light Lightbox */
 [data-theme='light'] .lightbox-overlay {
   background: rgba(248, 249, 251, 0.98);

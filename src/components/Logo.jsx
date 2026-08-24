@@ -51,7 +51,7 @@ const Logo = ({ height = 40, showText = true, textLight = true, className = "" }
       {showText && (
         <div className="d-flex flex-column lh-1">
           <span 
-            className="fw-bold tracking-wider" 
+            className="logo-brand-name fw-bold tracking-wider" 
             style={{ 
               fontSize: '1.1rem', 
               color: textLight ? '#FFFFFF' : '#0B0B0C',

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from './Logo';
-import { Mail, Phone, MapPin, Send, ChevronRight } from 'lucide-react';
-import { LinkedIn as Linkedin, Twitter, GitHub as Github } from './SocialIcons';
+import { Mail, Phone, Send } from 'lucide-react';
+import { Instagram, LinkedIn as Linkedin, GitHub as Github } from './SocialIcons';
 import { api } from '../services/api';
 
 const Footer = () => {
@@ -50,18 +50,14 @@ const Footer = () => {
                 <Phone size={14} className="text-white" />
                 <span>+91 98765 43210</span>
               </div>
-              <div className="d-flex align-items-start gap-2">
-                <MapPin size={14} className="text-white mt-1" />
-                <span>HITEC City, Hyderabad, India</span>
-              </div>
             </div>
             {/* Socials */}
             <div className="d-flex gap-2">
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="btn-outline-custom p-0 d-flex align-items-center justify-content-center" style={{ width: '36px', height: '36px', borderRadius: '50%', minWidth: '36px' }}>
+              <a href="https://www.linkedin.com/company/algorithmaliens-private-limited/posts/?feedView=all" target="_blank" rel="noopener noreferrer" className="btn-outline-custom p-0 d-flex align-items-center justify-content-center" style={{ width: '36px', height: '36px', borderRadius: '50%', minWidth: '36px' }}>
                 <Linkedin size={16} />
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="btn-outline-custom p-0 d-flex align-items-center justify-content-center" style={{ width: '36px', height: '36px', borderRadius: '50%', minWidth: '36px' }}>
-                <Twitter size={16} />
+              <a href="https://www.instagram.com/algorithmaliens?igsh=MTA1ZjRwYjk1cmltZQ%3D%3D" target="_blank" rel="noopener noreferrer" className="btn-outline-custom p-0 d-flex align-items-center justify-content-center" style={{ width: '36px', height: '36px', borderRadius: '50%', minWidth: '36px' }}>
+                <Instagram size={16} />
               </a>
               <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="btn-outline-custom p-0 d-flex align-items-center justify-content-center" style={{ width: '36px', height: '36px', borderRadius: '50%', minWidth: '36px' }}>
                 <Github size={16} />
