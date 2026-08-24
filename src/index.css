@@ -977,6 +977,41 @@ h1, h2, h3, h4, h5, h6 {
   padding: 2rem;
 }
 
+.lightbox-content {
+  position: relative;
+  width: min(900px, 100%);
+  max-height: 90vh;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -0.75rem;
+  right: -0.75rem;
+  z-index: 3;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  background: rgba(7, 7, 9, 0.9);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.lightbox-close:hover {
+  background: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+}
+
+[data-theme='light'] .lightbox-close {
+  background: #fff;
+  border-color: rgba(0, 0, 0, 0.15);
+  color: #0D0D12;
+}
+
 /* Interactive badges styling */
 .badge-premium {
   padding: 8px 16px;
