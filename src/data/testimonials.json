@@ -1,56 +1,38 @@
 [
   {
     "id": "t1",
-    "name": "Sarah Jenkins",
-    "role": "CEO of Nexus Retail",
+    "name": "Sampath Kumar P",
+    "role": "Managing Director, Siris Engineering enterprises",
     "category": "client",
     "rating": 5,
-    "feedback": "AlgorithmAliens transformed our retail business with an AI automation assistant that handles 90% of customer queries. Their delivery speed and eye for detail are unmatched.",
-    "photo": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150"
+    "feedback": "AlgorithmAliens delivered a production-ready platform in 6 weeks. Easily the best engineering partner we've worked with.",
+    "photo": ""
   },
   {
     "id": "t2",
-    "name": "Karthik Raja",
-    "role": "Full-Stack Web Intern",
+    "name": "Kashish perhwani",
+    "role": "EX Intern,App Development",
     "category": "internship",
     "rating": 5,
-    "feedback": "My internship at AlgorithmAliens was life-changing. I worked on a live web application, learned advanced React patterns, and got direct mentorship from senior developers.",
-    "photo": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150"
+    "feedback": "I shipped a real product during my internship. The mentorship transformed how I think about software.",
+    "photo": ""
   },
   {
     "id": "t3",
-    "name": "Nisha Deshmukh",
-    "role": "Python & ML Course Graduate",
-    "category": "training",
+    "name": "Rajesh Kumar.",
+    "role": "CEO, RSP Engineering solutions",
+    "category": "client",
     "rating": 5,
-    "feedback": "The Academy courses are structured beautifully. Instead of boring slides, we spent 80% of our time coding and building real-world projects. I highly recommend it!",
-    "photo": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150"
+    "feedback": "Thanks to Algorithm Aliens for bringing my business online. Their custom system has made it much easier to manage clients, track finances, and streamline daily operations. The solution is simple, efficient, and has helped improve the way I run my business. Highly recommended!",
+    "photo": ""
   },
   {
     "id": "t4",
-    "name": "Rahul Verma",
-    "role": "Hack It On 2025 Winner",
-    "category": "event",
-    "rating": 5,
-    "feedback": "Organizing and participating in Hack It On 2025 was a thrilling experience. The challenge was high, the mentors were top-tier, and the prizes were excellent.",
-    "photo": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150"
-  },
-  {
-    "id": "t5",
-    "name": "Dr. Ramesh Babu",
-    "role": "Dean of Engineering, VITS",
-    "category": "client",
-    "rating": 5,
-    "feedback": "AlgorithmAliens partnered with our institute to set up an ANX Club chapter. The level of engagement and coding culture they built in just one semester is remarkable.",
-    "photo": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150"
-  },
-  {
-    "id": "t6",
-    "name": "Pooja Hegde",
-    "role": "AI Developer Intern",
+    "name": "YASH NALAVADE",
+    "role": "EX Intern,ML Engineering",
     "category": "internship",
     "rating": 5,
-    "feedback": "Working on OpenAI integration pipelines and learning LangChain during my internship was an incredible learning curve. A great culture of innovation!",
-    "photo": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150"
+    "feedback": "I gained practical exposure and improved my understanding of technical concepts, problem-solving, and professional work culture. The tasks assigned to me were well-structured and helped me enhance my skills and confidence. I also appreciated the guidance and support provided by the team whenever required",
+    "photo": ""
   }
 ]

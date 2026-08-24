@@ -545,68 +545,75 @@ export async function initDb() {
       url: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800",
       description: "Designing the architecture diagram for a futuristic decentralized application.",
       orderIndex: 8
+    },
+    {
+      id: "g9",
+      title: "Internship Experience 1",
+      category: "internships",
+      type: "video",
+      url: "/videos/video1.mp4",
+      description: "An employee sharing their experience working with AlgorithmAliens during the internship.",
+      orderIndex: 9
+    },
+    {
+      id: "g10",
+      title: "Internship Experience 2",
+      category: "internships",
+      type: "video",
+      url: "/videos/video2.mp4",
+      description: "An employee sharing their experience working with AlgorithmAliens during the internship.",
+      orderIndex: 10
+    },
+    {
+      id: "g11",
+      title: "Internship Experience 3",
+      category: "internships",
+      type: "video",
+      url: "/videos/video3.mp4",
+      description: "An employee sharing their experience working with AlgorithmAliens during the internship.",
+      orderIndex: 11
     }
   ]);
 
   await seedTableIfEmpty('testimonials', [
     {
       id: "t1",
-      name: "Sarah Jenkins",
-      role: "CEO of Nexus Retail",
+      name: "Sampath Kumar P",
+      role: "Managing Director, Siris Engineering enterprises",
       category: "client",
       rating: 5,
-      feedback: "AlgorithmAliens delivered a production-ready platform in 6 weeks. Easily the best engineering partner we've worked with. Their retail chatbot handles 90% of user queries.",
-      photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150",
+      feedback: "AlgorithmAliens delivered a production-ready platform in 6 weeks. Easily the best engineering partner we've worked with.",
+      photo: "",
       orderIndex: 1
     },
     {
       id: "t2",
-      name: "Karthik Raja",
-      role: "Full-Stack Web Intern",
+      name: "Kashish perhwani",
+      role: "EX Intern,App Development",
       category: "internship",
       rating: 5,
-      feedback: "I shipped a real product during my internship. The mentorship transformed how I think about software. I learned advanced React and REST API development.",
-      photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150",
+      feedback: "I shipped a real product during my internship. The mentorship transformed how I think about software.",
+      photo: "",
       orderIndex: 2
     },
     {
       id: "t3",
-      name: "Nisha Deshmukh",
-      role: "Python & ML Course Graduate",
-      category: "training",
+      name: "Rajesh Kumar.",
+      role: "CEO, RSP Engineering solutions",
+      category: "client",
       rating: 5,
-      feedback: "Thanks to Algorithm Aliens for helping build my skills. The course spent 80% of time coding real-world tasks. Excellent support and resources.",
-      photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150",
+      feedback: "Thanks to Algorithm Aliens for bringing my business online. Their custom system has made it much easier to manage clients, track finances, and streamline daily operations. The solution is simple, efficient, and has helped improve the way I run my business. Highly recommended!",
+      photo: "",
       orderIndex: 3
     },
     {
       id: "t4",
-      name: "Rahul Verma",
-      role: "Hack It On 2025 Winner",
-      category: "event",
-      rating: 5,
-      feedback: "Thanks to Algorithm Aliens for running such competitive hackathons. The guidance, code templates, and review sessions helped us ship our AI prototype.",
-      photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150",
-      orderIndex: 4
-    },
-    {
-      id: "t5",
-      name: "Dr. Ramesh Babu",
-      role: "Dean of Engineering, VITS",
-      category: "client",
-      rating: 5,
-      feedback: "AlgorithmAliens built a custom student platform for our college ANX Club. The solution is simple, efficient, and has helped improve student coding collaboration.",
-      photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150",
-      orderIndex: 5
-    },
-    {
-      id: "t6",
-      name: "Pooja Hegde",
-      role: "AI Developer Intern",
+      name: "YASH NALAVADE",
+      role: "EX Intern,ML Engineering",
       category: "internship",
       rating: 5,
-      feedback: "Working on LangChain structures and workflow automation APIs during my internship was a superb learning experience. Very supportive team culture.",
-      photo: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150",
+      feedback: "I gained practical exposure and improved my understanding of technical concepts, problem-solving, and professional work culture. The tasks assigned to me were well-structured and helped me enhance my skills and confidence. I also appreciated the guidance and support provided by the team whenever required",
+      photo: "",
       orderIndex: 6
     }
   ]);

@@ -83,6 +83,13 @@ const Gallery = () => {
         {/* Media Grid & Lightbox Section */}
         <section className="section-padding">
           <div className="container">
+            <div className="text-center mb-5">
+              <span className="text-gradient fw-bold text-uppercase tracking-wider" style={{ fontSize: '0.85rem' }}>Internship Stories</span>
+              <h2 className="creative-heading lh-sm mb-2">Meet the <span className="text-gradient">Interns</span></h2>
+              <p className="text-muted-custom mx-auto mb-0" style={{ maxWidth: '620px' }}>
+                Hear directly from employees who built real skills and shipped meaningful work during their internships.
+              </p>
+            </div>
             
             {/* Filters */}
             <div className="d-flex flex-wrap justify-content-center gap-2 mb-5">

@@ -62,5 +62,29 @@
     "type": "image",
     "url": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800",
     "description": "Designing the architecture diagram for a futuristic decentralized application."
+  },
+  {
+    "id": "g9",
+    "title": "Internship Experience 1",
+    "category": "internships",
+    "type": "video",
+    "url": "/videos/video1.mp4",
+    "description": "An employee sharing their experience working with AlgorithmAliens during the internship."
+  },
+  {
+    "id": "g10",
+    "title": "Internship Experience 2",
+    "category": "internships",
+    "type": "video",
+    "url": "/videos/video2.mp4",
+    "description": "An employee sharing their experience working with AlgorithmAliens during the internship."
+  },
+  {
+    "id": "g11",
+    "title": "Internship Experience 3",
+    "category": "internships",
+    "type": "video",
+    "url": "/videos/video3.mp4",
+    "description": "An employee sharing their experience working with AlgorithmAliens during the internship."
   }
 ]
