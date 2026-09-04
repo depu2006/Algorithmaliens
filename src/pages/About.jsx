@@ -201,28 +201,34 @@ const About = () => {
                 teamData.map((member) => (
                   <div className="col-lg-4 col-md-6" key={member.id}>
                     <motion.div
-                      className="card-custom p-0 overflow-hidden d-flex flex-column h-100"
+                      className="card-custom p-4 overflow-hidden d-flex flex-column h-100 position-relative"
                       variants={cardVariants}
                       initial="hidden"
                       whileInView="visible"
                       viewport={{ once: true, amount: 0.15 }}
                     >
-                      {/* Photo area */}
-                      <div style={{ height: '320px', overflow: 'hidden', position: 'relative' }}>
-                        <img 
-                          src={member.photo} 
-                          alt={member.name}
-                          className="w-100 h-100"
-                          style={{ objectFit: 'cover' }}
-                        />
-                        <div className="position-absolute bottom-0 start-0 w-100 p-4" style={{ background: 'linear-gradient(to top, rgba(7,7,9,0.95), transparent)' }}>
-                          <span className="badge rounded-pill bg-secondary mb-1.5 px-3 py-1" style={{ fontSize: '0.75rem', background: 'var(--gradient-main) !important', border: 'none' }}>{member.role}</span>
-                          <h4 className="fw-bold text-white mb-0" style={{ fontFamily: "'Outfit', sans-serif", fontSize: '1.3rem' }}>{member.name}</h4>
+                      {/* Header with Initial Avatar */}
+                      <div className="d-flex align-items-center gap-3 mb-4">
+                        <div
+                          className="d-flex align-items-center justify-content-center rounded-circle fw-bold text-white fs-4"
+                          style={{
+                            width: '56px',
+                            height: '56px',
+                            minWidth: '56px',
+                            background: 'linear-gradient(135deg, var(--primary-violet), var(--accent-cyan))',
+                            boxShadow: '0 8px 20px rgba(139, 92, 246, 0.25)'
+                          }}
+                        >
+                          {member.name ? member.name.split(' ').map(n => n[0]).slice(0, 2).join('') : 'AA'}
+                        </div>
+                        <div>
+                          <span className="badge rounded-pill mb-1 px-3 py-1" style={{ fontSize: '0.72rem', background: 'rgba(139, 92, 246, 0.15)', border: '1px solid rgba(139, 92, 246, 0.3)', color: 'var(--accent-cyan)' }}>{member.role}</span>
+                          <h4 className="fw-bold text-white mb-0" style={{ fontFamily: "'Outfit', sans-serif", fontSize: '1.15rem' }}>{member.name}</h4>
                         </div>
                       </div>
 
                       {/* Body bio */}
-                      <div className="p-4 d-flex flex-column justify-content-between flex-grow-1">
+                      <div className="d-flex flex-column justify-content-between flex-grow-1">
                         <p className="text-muted-custom mb-4" style={{ fontSize: '0.9rem', lineHeight: '1.6' }}>{member.bio}</p>
                         
                         {/* Social networks links */}

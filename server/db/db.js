@@ -630,7 +630,7 @@ export async function initDb() {
       name: "Beeram Vasanth Kumar Reddy",
       role: "Co-Founder & CEO",
       bio: "Visionary entrepreneur and software architect with a passion for building scalable tech products and fostering innovation ecosystems.",
-      photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400",
+      photo: "",
       linkedin: "https://linkedin.com",
       twitter: "https://twitter.com",
       github: "https://github.com",
@@ -641,7 +641,7 @@ export async function initDb() {
       name: "Sai Ram Polsai",
       role: "Co-Founder & CTO",
       bio: "AI engineering researcher and automation expert. Sai Ram designs high-throughput systems and directs the core AI research labs.",
-      photo: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400",
+      photo: "",
       linkedin: "https://linkedin.com",
       twitter: "https://twitter.com",
       github: "https://github.com",
@@ -652,13 +652,16 @@ export async function initDb() {
       name: "Satya Pranav A",
       role: "Head of Engineering & Community",
       bio: "Lead Full-Stack developer overseeing community outreach programs like ANX Clubs and guiding the technical curriculum at the Academy.",
-      photo: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=400",
+      photo: "",
       linkedin: "https://linkedin.com",
       twitter: "https://twitter.com",
       github: "https://github.com",
       orderIndex: 3
     }
   ]);
+
+  // Migration: clear stock photo URLs in live DB for team
+  await query.run("UPDATE team SET photo = ''");
 
   const updatedStats = [
     {
