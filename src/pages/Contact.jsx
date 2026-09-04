@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Mail, Phone, MapPin, Send, AlertTriangle, CircleCheck, LoaderCircle, ChevronDown } from 'lucide-react';
+import { Mail, Send, AlertTriangle, CircleCheck, LoaderCircle, ChevronDown } from 'lucide-react';
 import { LinkedIn as Linkedin, Twitter, GitHub as Github } from '../components/SocialIcons';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -89,7 +89,7 @@ const Contact = () => {
                   Our support team is active from Monday to Friday, 9:00 AM to 6:00 PM IST. Submit a query and we will reply within 24 hours.
                 </p>
 
-                <div className="d-flex gap-3 mb-4">
+                <div className="d-flex gap-3 mb-5">
                   <div className="icon-3d-wrapper" style={{ width: '42px', height: '42px', minWidth: '42px' }}>
                     <Mail size={16} className="text-white" />
                   </div>
@@ -97,39 +97,6 @@ const Contact = () => {
                     <h6 className="fw-bold text-white mb-0.5" style={{ fontSize: '0.95rem' }}>Email Queries</h6>
                     <span className="text-muted-custom small">info@algorithmaliens.com</span>
                   </div>
-                </div>
-
-                <div className="d-flex gap-3 mb-4">
-                  <div className="icon-3d-wrapper" style={{ width: '42px', height: '42px', minWidth: '42px' }}>
-                    <Phone size={16} className="text-white" />
-                  </div>
-                  <div>
-                    <h6 className="fw-bold text-white mb-0.5" style={{ fontSize: '0.95rem' }}>Call Support</h6>
-                    <span className="text-muted-custom small">+91 98765 43210</span>
-                  </div>
-                </div>
-
-                <div className="d-flex gap-3 mb-5">
-                  <div className="icon-3d-wrapper" style={{ width: '42px', height: '42px', minWidth: '42px' }}>
-                    <MapPin size={16} className="text-white" />
-                  </div>
-                  <div>
-                    <h6 className="fw-bold text-white mb-0.5" style={{ fontSize: '0.95rem' }}>Headquarters</h6>
-                    <span className="text-muted-custom small">HITEC City, Hyderabad, India</span>
-                  </div>
-                </div>
-
-                {/* Google Maps Embed */}
-                <div className="rounded overflow-hidden border mb-4" style={{ height: '200px', borderColor: 'var(--glass-border)' }}>
-                  <iframe
-                    title="AlgorithmAliens Location Map"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3807.4116242371985!2d78.38202931535492!3d17.439999788048256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb93dc49c5e3ab%3A0xe54d3dfed2b3d81b!2sHITEC%20City%2C%20Hyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1625064500000!5m2!1sen!2sin"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen=""
-                    loading="lazy"
-                  ></iframe>
                 </div>
 
                 {/* Social links */}
