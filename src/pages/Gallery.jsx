@@ -5,22 +5,19 @@ import { Maximize2, Play, X, Info, ChevronDown, Image, Loader2 } from 'lucide-re
 import SEO from '../components/SEO';
 import { api } from '../services/api';
 
+import { initialGallery } from '../data/initialData';
+
 const Gallery = () => {
   const [filter, setFilter] = useState('all');
   const [selectedMedia, setSelectedMedia] = useState(null);
-  const [galleryData, setGalleryData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [galleryData, setGalleryData] = useState(initialGallery);
 
   useEffect(() => {
     api.public.getGallery()
       .then(data => {
-        setGalleryData(data);
-        setLoading(false);
+        if (Array.isArray(data) && data.length > 0) setGalleryData(data);
       })
-      .catch(err => {
-        console.error(err);
-        setLoading(false);
-      });
+      .catch(err => console.warn('Gallery sync notice:', err.message));
   }, []);
 
   const categories = [
@@ -113,12 +110,7 @@ const Gallery = () => {
               initial="hidden"
               animate="visible"
             >
-              {loading ? (
-                <div className="col-12 text-center py-5">
-                  <Loader2 className="animate-spin text-gradient mb-3" size={32} />
-                  <p className="text-muted-custom small">Loading gallery...</p>
-                </div>
-              ) : filteredData.length > 0 ? (
+              {filteredData.length > 0 ? (
                 filteredData.map((item) => (
                   <div className="col-lg-4 col-md-6 col-12" key={item.id}>
                     <motion.div 

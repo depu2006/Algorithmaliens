@@ -5,19 +5,20 @@ import { Star, MessageSquare, ChevronDown, Loader2 } from 'lucide-react';
 import SEO from '../components/SEO';
 import { api } from '../services/api';
 
+import { initialTestimonials } from '../data/initialData';
+
 const Testimonials = () => {
-  const [testimonialsData, setTestimonialsData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [testimonialsData, setTestimonialsData] = useState(initialTestimonials);
 
   useEffect(() => {
     api.public.getTestimonials()
       .then(data => {
-        setTestimonialsData(data);
-        setLoading(false);
+        if (Array.isArray(data) && data.length > 0) {
+          setTestimonialsData(data);
+        }
       })
       .catch(err => {
-        console.error(err);
-        setLoading(false);
+        console.warn('Testimonials sync notice (using cached data):', err.message);
       });
   }, []);
   const containerVariants = {
@@ -73,12 +74,7 @@ const Testimonials = () => {
               initial="hidden"
               animate="visible"
             >
-              {loading ? (
-                <div className="col-12 text-center py-5">
-                  <Loader2 className="animate-spin text-gradient mb-3" size={32} />
-                  <p className="text-muted-custom small">Loading testimonials...</p>
-                </div>
-              ) : testimonialsData.length > 0 ? (
+              {testimonialsData.length > 0 ? (
                 testimonialsData.map((test) => (
                   <div className="col-lg-4 col-md-6" key={test.id}>
                     <motion.div 

@@ -12,19 +12,20 @@ const productImages = {
   "anx-clubs": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&auto=format&fit=crop&q=80"
 };
 
+import { initialProducts } from '../data/initialData';
+
 const Products = () => {
-  const [productsData, setProductsData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [productsData, setProductsData] = useState(initialProducts);
 
   useEffect(() => {
     api.public.getProducts()
       .then(data => {
-        setProductsData(data);
-        setLoading(false);
+        if (Array.isArray(data) && data.length > 0) {
+          setProductsData(data);
+        }
       })
       .catch(err => {
-        console.error(err);
-        setLoading(false);
+        console.warn('Products sync notice (using cached data):', err.message);
       });
   }, []);
   const containerVariants = {
@@ -80,12 +81,7 @@ const Products = () => {
               initial="hidden"
               animate="visible"
             >
-              {loading ? (
-                <div className="col-12 text-center py-5">
-                  <Loader2 className="animate-spin text-gradient mb-3" size={32} />
-                  <p className="text-muted-custom small">Loading products...</p>
-                </div>
-              ) : productsData.length > 0 ? (
+              {productsData.length > 0 ? (
                 productsData.map((prod) => (
                   <div className="col-lg-6" key={prod.id}>
                     <motion.div 

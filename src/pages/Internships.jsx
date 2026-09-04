@@ -15,35 +15,31 @@ const trackImages = {
   "full-stack": "https://images.unsplash.com/photo-1605379399642-870262d3d051?w=600&auto=format&fit=crop&q=80"
 };
 
+import { initialInternships, initialTestimonials } from '../data/initialData';
+
 const Internships = () => {
-  const [programs, setPrograms] = useState([]);
-  const [successStories, setSuccessStories] = useState([]);
-  const [loadingPrograms, setLoadingPrograms] = useState(true);
-  const [loadingTestimonials, setLoadingTestimonials] = useState(true);
+  const [programs, setPrograms] = useState(initialInternships);
+  const [successStories, setSuccessStories] = useState(
+    initialTestimonials.filter(t => t.category === 'internship' || t.category === 'training')
+  );
 
   useEffect(() => {
     api.public.getInternships()
       .then(data => {
-        setPrograms(data);
-        setLoadingPrograms(false);
+        if (Array.isArray(data) && data.length > 0) setPrograms(data);
       })
-      .catch(err => {
-        console.error(err);
-        setLoadingPrograms(false);
-      });
+      .catch(err => console.warn('Internship sync notice:', err.message));
 
     api.public.getTestimonials()
       .then(data => {
-        const filtered = data.filter(
-          (t) => t.category === 'internship' || t.category === 'training'
-        );
-        setSuccessStories(filtered);
-        setLoadingTestimonials(false);
+        if (Array.isArray(data) && data.length > 0) {
+          const filtered = data.filter(
+            (t) => t.category === 'internship' || t.category === 'training'
+          );
+          if (filtered.length > 0) setSuccessStories(filtered);
+        }
       })
-      .catch(err => {
-        console.error(err);
-        setLoadingTestimonials(false);
-      });
+      .catch(err => console.warn('Testimonial sync notice:', err.message));
   }, []);
 
   const steps = [
@@ -99,12 +95,7 @@ const Internships = () => {
             </div>
 
             <div className="row g-4">
-              {loadingPrograms ? (
-                <div className="col-12 text-center py-5">
-                  <Loader2 className="animate-spin text-gradient mb-3" size={32} />
-                  <p className="text-muted-custom small">Loading internship tracks...</p>
-                </div>
-              ) : programs.length > 0 ? (
+              {programs.length > 0 ? (
                 programs.map((prog) => (
                   <div className="col-lg-4 col-md-6" key={prog.id}>
                     <div className="card-custom d-flex flex-column justify-content-between h-100">
@@ -255,12 +246,7 @@ const Internships = () => {
               </p>
             </div>
 
-              {loadingTestimonials ? (
-                <div className="col-12 text-center py-5">
-                  <Loader2 className="animate-spin text-gradient mb-3" size={32} />
-                  <p className="text-muted-custom small">Loading graduate reviews...</p>
-                </div>
-              ) : successStories.length > 0 ? (
+              {successStories.length > 0 ? (
                 successStories.map((story) => (
                   <div className="col-md-6" key={story.id}>
                     <div className="card-custom p-4 d-flex flex-column justify-content-between h-100">

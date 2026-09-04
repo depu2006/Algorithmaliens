@@ -5,21 +5,18 @@ import { Calendar, Award, Star, X, ZoomIn, ChevronDown, Loader2 } from 'lucide-r
 import SEO from '../components/SEO';
 import { api } from '../services/api';
 
+import { initialEvents } from '../data/initialData';
+
 const Events = () => {
   const [selectedImage, setSelectedImage] = useState(null);
-  const [eventsData, setEventsData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [eventsData, setEventsData] = useState(initialEvents);
 
   useEffect(() => {
     api.public.getEvents()
       .then(data => {
-        setEventsData(data);
-        setLoading(false);
+        if (Array.isArray(data) && data.length > 0) setEventsData(data);
       })
-      .catch(err => {
-        console.error(err);
-        setLoading(false);
-      });
+      .catch(err => console.warn('Events sync notice:', err.message));
   }, []);
 
   const containerVariants = {
@@ -75,12 +72,7 @@ const Events = () => {
               initial="hidden"
               animate="visible"
             >
-              {loading ? (
-                <div className="col-12 text-center py-5">
-                  <Loader2 className="animate-spin text-gradient mb-3" size={32} />
-                  <p className="text-muted-custom small">Loading events...</p>
-                </div>
-              ) : eventsData.length > 0 ? (
+              {eventsData.length > 0 ? (
                 eventsData.map((event) => (
                 <div className="col-12" key={event.id}>
                   <motion.div 

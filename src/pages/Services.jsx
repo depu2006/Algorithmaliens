@@ -15,19 +15,20 @@ const serviceImages = {
   "custom-software": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&auto=format&fit=crop&q=80"
 };
 
+import { initialServices } from '../data/initialData';
+
 const Services = () => {
-  const [servicesData, setServicesData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [servicesData, setServicesData] = useState(initialServices);
 
   useEffect(() => {
     api.public.getServices()
       .then(data => {
-        setServicesData(data);
-        setLoading(false);
+        if (Array.isArray(data) && data.length > 0) {
+          setServicesData(data);
+        }
       })
       .catch(err => {
-        console.error(err);
-        setLoading(false);
+        console.warn('Services sync notice (using cached data):', err.message);
       });
   }, []);
   const containerVariants = {
@@ -82,13 +83,7 @@ const Services = () => {
               initial="hidden"
               animate="visible"
             >
-              {loading ? (
-                <div className="text-center py-5 card-custom align-items-center">
-                  <Loader2 className="animate-spin text-gradient mb-3" size={32} />
-                  <h5 className="fw-bold text-white mb-1">Loading Services</h5>
-                  <p className="text-muted-custom mb-0 small">Connecting to our database...</p>
-                </div>
-              ) : servicesData.length > 0 ? (
+              {servicesData.length > 0 ? (
                 servicesData.map((service, index) => {
                 const IconComponent = Icons[service.icon] || Icons.Cpu;
                 const isEven = index % 2 === 0;

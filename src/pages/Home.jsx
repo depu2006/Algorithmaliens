@@ -8,6 +8,8 @@ import SEO from '../components/SEO';
 import AnimatedCounter from '../components/AnimatedCounter';
 import Logo from '../components/Logo';
 import { api } from '../services/api';
+import { useTheme } from '../context/ThemeContext';
+import { initialServices, initialEvents, initialProducts, initialTestimonials, initialStatistics } from '../data/initialData';
 
 // Unsplash Images Map for High-Vibrancy styling
 const serviceImages = {
@@ -26,13 +28,14 @@ const productImages = {
 const Home = () => {
   const videoRef = useRef(null);
   const [videoError, setVideoError] = useState(false);
+  const { theme } = useTheme() || {};
 
-  // Dynamic data from backend
-  const [servicesData, setServicesData] = useState([]);
-  const [eventsData, setEventsData] = useState([]);
-  const [productsData, setProductsData] = useState([]);
-  const [testimonialsData, setTestimonialsData] = useState([]);
-  const [statsData, setStatsData] = useState([]);
+  // Dynamic data from backend (initialized with instant fallback data)
+  const [servicesData, setServicesData] = useState(initialServices);
+  const [eventsData, setEventsData] = useState(initialEvents);
+  const [productsData, setProductsData] = useState(initialProducts);
+  const [testimonialsData, setTestimonialsData] = useState(initialTestimonials);
+  const [statsData, setStatsData] = useState(initialStatistics);
 
   useEffect(() => {
     if (videoRef.current) {
@@ -43,12 +46,12 @@ const Home = () => {
       });
     }
 
-    // Fetch all dynamic homepage content in parallel
-    api.public.getServices().then(setServicesData).catch(console.error);
-    api.public.getEvents().then(setEventsData).catch(console.error);
-    api.public.getProducts().then(setProductsData).catch(console.error);
-    api.public.getTestimonials().then(setTestimonialsData).catch(console.error);
-    api.public.getStats().then(setStatsData).catch(console.error);
+    // Fetch all dynamic homepage content in parallel for background sync
+    api.public.getServices().then(d => { if (Array.isArray(d) && d.length > 0) setServicesData(d); }).catch(console.warn);
+    api.public.getEvents().then(d => { if (Array.isArray(d) && d.length > 0) setEventsData(d); }).catch(console.warn);
+    api.public.getProducts().then(d => { if (Array.isArray(d) && d.length > 0) setProductsData(d); }).catch(console.warn);
+    api.public.getTestimonials().then(d => { if (Array.isArray(d) && d.length > 0) setTestimonialsData(d); }).catch(console.warn);
+    api.public.getStats().then(d => { if (Array.isArray(d) && d.length > 0) setStatsData(d); }).catch(console.warn);
   }, []);
 
   const containerVariants = {
@@ -159,7 +162,7 @@ const Home = () => {
               </motion.div>
             </div>
 
-            {/* Right Side 3D Graphic */}
+            {/* Right Side Hero Graphic */}
             <div className="col-lg-5 text-center">
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -167,9 +170,25 @@ const Home = () => {
                 transition={{ duration: 0.8, ease: 'easeOut' }}
                 className="position-relative d-inline-block w-100"
               >
-                {/* Brand Logo video or static fallback */}
+                {/* Brand Logo video or light theme image */}
                 <div style={{ maxWidth: '100%', margin: '0 auto' }}>
-                  {!videoError ? (
+                  {theme === 'light' ? (
+                    <div className="p-2">
+                      <img
+                        src="/logo-light.png"
+                        alt="Algorithm Aliens Pvt. Ltd."
+                        style={{
+                          width: '100%',
+                          maxWidth: '380px',
+                          height: 'auto',
+                          borderRadius: '16px',
+                          display: 'block',
+                          margin: '0 auto',
+                          boxShadow: '0 10px 30px rgba(139, 92, 246, 0.12)'
+                        }}
+                      />
+                    </div>
+                  ) : !videoError ? (
                     <video
                       ref={videoRef}
                       autoPlay
