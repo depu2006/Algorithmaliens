@@ -1308,3 +1308,47 @@ h1, h2, h3, h4, h5, h6 {
 /* Hide native expand arrow on IE/Edge for consistent look */
 select::-ms-expand { display: none; }
 
+/* ── RESPONSIVE MEDIA QUERIES (Tablet & Mobile) ── */
+@media (max-width: 991.98px) {
+  .full-screen-hero {
+    min-height: auto !important;
+    padding-top: 110px !important;
+    padding-bottom: 50px !important;
+  }
+
+  .scroll-down-btn {
+    display: none !important;
+  }
+
+  .ticker-belt {
+    padding: 10px 0;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .full-screen-hero {
+    padding-top: 100px !important;
+    padding-bottom: 40px !important;
+  }
+
+  .full-screen-hero h1 {
+    font-size: clamp(2rem, 8vw, 2.8rem) !important;
+  }
+
+  .full-screen-hero p {
+    font-size: 0.95rem !important;
+  }
+
+  .ticker-belt span {
+    font-size: 0.75rem !important;
+    padding: 0 16px !important;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .btn-gradient, .btn-outline-custom {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
