@@ -2,9 +2,15 @@ import { collection, addDoc, query, orderBy, getDocs, doc, updateDoc, deleteDoc,
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { db, storage } from './firebase';
 
-const contactsCollection = collection(db, 'contacts');
+// Lazy accessor — avoids module-level crash when Firebase is not configured
+const getContactsCollection = () => db ? collection(db, 'contacts') : null;
 
 export async function submitContactToFirestore(payload) {
+  const contactsCollection = getContactsCollection();
+  if (!contactsCollection) {
+    console.warn('[Firestore Web SDK] Firebase not configured, skipping Firestore write.');
+    return { success: false };
+  }
   try {
     const docRef = await addDoc(contactsCollection, {
       name: payload.name,
@@ -28,6 +34,8 @@ export async function submitContactToFirestore(payload) {
 }
 
 export async function getContactsFromFirestore() {
+  const contactsCollection = getContactsCollection();
+  if (!contactsCollection) return [];
   const q = query(contactsCollection, orderBy('createdAt', 'desc'));
   const snapshot = await getDocs(q);
   const rows = [];
@@ -36,22 +44,25 @@ export async function getContactsFromFirestore() {
 }
 
 export async function updateContactStatusInFirestore(id, status) {
+  if (!db) return { success: false };
   const d = doc(db, 'contacts', id);
   await updateDoc(d, { status });
   return { success: true };
 }
 
 export async function deleteContactFromFirestore(id) {
+  if (!db) return { success: false };
   const d = doc(db, 'contacts', id);
   await deleteDoc(d);
   return { success: true };
 }
 
 export function uploadFileToStorage(file, pathPrefix = 'uploads') {
+  if (!storage) return Promise.reject(new Error('Firebase Storage not configured'));
   return new Promise((resolve, reject) => {
     const fileRef = ref(storage, `${pathPrefix}/${Date.now()}_${file.name}`);
     const uploadTask = uploadBytesResumable(fileRef, file);
-    uploadTask.on('state_changed', 
+    uploadTask.on('state_changed',
       () => {},
       (err) => reject(err),
       async () => {
