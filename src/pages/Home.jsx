@@ -88,7 +88,19 @@ const Home = () => {
       />
 
       {/* 1. HERO SECTION (Full Viewport Height) */}
-      <section className="full-screen-hero position-relative d-flex align-items-center">
+      <section className="full-screen-hero position-relative d-flex align-items-center py-5 overflow-hidden">
+        {/* Subtle background glow */}
+        <div 
+          className="position-absolute top-50 start-50 translate-middle pointer-events-none" 
+          style={{
+            width: '600px',
+            height: '600px',
+            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(6, 182, 212, 0.08) 45%, transparent 70%)',
+            filter: 'blur(50px)',
+            zIndex: 1
+          }}
+        />
+
         <div className="container position-relative" style={{ zIndex: 2 }}>
           <div className="row align-items-center g-5">
             {/* Left Side Info */}
@@ -112,23 +124,10 @@ const Home = () => {
                 </span>
               </motion.div>
 
-              {/* Company Logo Row */}
-              <motion.div 
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                className="d-flex align-items-center justify-content-center justify-content-lg-start gap-2.5 mb-3"
-              >
-                <Logo height={28} showText={false} />
-                <span className="fw-bold fs-5 text-white" style={{ fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.3px' }}>
-                  AlgorithmAliens
-                </span>
-              </motion.div>
-
               {/* Tagline / Headline matching reference image */}
               <motion.h1 
                 className="creative-heading lh-sm mb-4"
-                style={{ fontFamily: "'Outfit', sans-serif" }}
+                style={{ fontFamily: "'Outfit', sans-serif", fontSize: 'clamp(2.5rem, 5vw, 3.6rem)', fontWeight: 800, letterSpacing: '-0.03em' }}
               >
                 <motion.span 
                   initial={{ opacity: 0, y: 15 }}
@@ -165,80 +164,153 @@ const Home = () => {
                 </motion.span>
               </motion.h1>
 
-              {/* Supporting Sentence matching reference image */}
+              {/* Supporting Sentence */}
               <motion.p
-                className="lead text-muted-custom mb-5"
+                className="lead text-muted-custom mb-4"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                style={{ fontSize: '1.12rem', maxWidth: '620px', lineHeight: '1.65' }}
+                style={{ fontSize: '1.15rem', maxWidth: '640px', lineHeight: '1.65' }}
               >
                 Transforming ideas into innovative digital solutions while empowering businesses, students, and communities through technology, products, and real-world learning.
               </motion.p>
 
-              {/* Action Buttons matching reference image */}
-              <motion.div
-                className="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3 mb-5"
-                initial={{ opacity: 0, y: 15 }}
+              {/* Micro Metrics Highlights Bar */}
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
+                className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start gap-4 mb-4 text-muted-custom"
+                style={{ fontSize: '0.88rem', fontWeight: 600 }}
               >
-                <Link to="/book-call" className="btn-gradient rounded-pill px-4 py-2.5">
+                <div className="d-flex align-items-center gap-1.5">
+                  <CheckCircle size={15} className="text-gradient" />
+                  <span>25+ Shipped Projects</span>
+                </div>
+                <div className="d-flex align-items-center gap-1.5">
+                  <CheckCircle size={15} className="text-gradient" />
+                  <span>5+ Enterprise Clients</span>
+                </div>
+                <div className="d-flex align-items-center gap-1.5">
+                  <CheckCircle size={15} className="text-gradient" />
+                  <span>60+ Students Trained</span>
+                </div>
+              </motion.div>
+
+              {/* Action Buttons */}
+              <motion.div
+                className="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3 mb-4"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
+                <Link to="/book-call" className="btn-gradient rounded-pill px-4 py-2.5 d-inline-flex align-items-center gap-2">
                   <PhoneCall size={16} />
                   <span>Book a Free Consultation</span>
                 </Link>
-                <Link to="/services" className="btn-outline-custom rounded-pill px-4 py-2.5">
+                <Link to="/services" className="btn-outline-custom rounded-pill px-4 py-2.5 d-inline-flex align-items-center gap-2">
                   <span>Explore Services</span>
                   <ArrowRight size={16} />
                 </Link>
               </motion.div>
             </div>
 
-            {/* Right Side Hero Graphic */}
-            <div className="col-lg-5 text-center">
+            {/* Right Side Hero Showcase (Seamless Drop-Shadow Blending & Floating Micro Badges) */}
+            <div className="col-lg-5 text-center position-relative">
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, ease: 'easeOut' }}
                 className="position-relative d-inline-block w-100"
               >
-                {/* Brand Logo video or light theme image */}
-                <div style={{ maxWidth: '100%', margin: '0 auto' }}>
+                {/* Floating Micro Badge 1 (Top-Right) */}
+                <motion.div
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  className="position-absolute d-none d-sm-flex align-items-center gap-2 px-3 py-2 rounded-4 shadow-sm"
+                  style={{
+                    top: '-15px',
+                    right: '10px',
+                    background: theme === 'light' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(15, 23, 42, 0.85)',
+                    border: '1px solid rgba(139, 92, 246, 0.2)',
+                    backdropFilter: 'blur(12px)',
+                    zIndex: 4,
+                    fontSize: '0.8rem',
+                    fontWeight: 600,
+                    boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
+                  }}
+                >
+                  <Sparkles size={14} className="text-gradient" />
+                  <span className={theme === 'light' ? 'text-dark' : 'text-white'}>AI & Full-Stack Apps</span>
+                </motion.div>
+
+                {/* Floating Micro Badge 2 (Bottom-Left) */}
+                <motion.div
+                  animate={{ y: [0, 8, 0] }}
+                  transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                  className="position-absolute d-none d-sm-flex align-items-center gap-2 px-3 py-2 rounded-4 shadow-sm"
+                  style={{
+                    bottom: '10px',
+                    left: '-15px',
+                    background: theme === 'light' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(15, 23, 42, 0.85)',
+                    border: '1px solid rgba(6, 182, 212, 0.2)',
+                    backdropFilter: 'blur(12px)',
+                    zIndex: 4,
+                    fontSize: '0.8rem',
+                    fontWeight: 600,
+                    boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
+                  }}
+                >
+                  <Shield size={14} className="text-gradient-cyan" />
+                  <span className={theme === 'light' ? 'text-dark' : 'text-white'}>Enterprise Scale</span>
+                </motion.div>
+
+                {/* Brand Logo Presentation without harsh background box */}
+                <div 
+                  className="d-flex align-items-center justify-content-center p-3"
+                  style={{ maxWidth: '100%', margin: '0 auto' }}
+                >
                   {theme === 'light' ? (
-                    <div className="p-2">
-                      <img
-                        src="/logo-light.png"
-                        alt="Algorithm Aliens Pvt. Ltd."
-                        style={{
-                          width: '100%',
-                          maxWidth: '380px',
-                          height: 'auto',
-                          borderRadius: '16px',
-                          display: 'block',
-                          margin: '0 auto',
-                          boxShadow: '0 10px 30px rgba(139, 92, 246, 0.12)'
-                        }}
-                      />
-                    </div>
-                  ) : !videoError ? (
-                    <video
-                      ref={videoRef}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      onError={() => setVideoError(true)}
+                    <img
+                      src="/logo-light.png"
+                      alt="Algorithm Aliens Pvt. Ltd."
                       style={{
                         width: '100%',
-                        maxWidth: '360px',
+                        maxWidth: '380px',
                         height: 'auto',
-                        borderRadius: '16px',
-                        display: 'block'
+                        display: 'block',
+                        margin: '0 auto',
+                        filter: 'drop-shadow(0 15px 35px rgba(139, 92, 246, 0.2))',
+                        transition: 'transform 0.4s ease'
+                      }}
+                    />
+                  ) : !videoError ? (
+                    <div 
+                      className="rounded-4 overflow-hidden" 
+                      style={{ 
+                        maxWidth: '380px', 
+                        margin: '0 auto',
+                        boxShadow: '0 20px 40px rgba(139, 92, 246, 0.25)',
+                        border: '1px solid rgba(139, 92, 246, 0.2)'
                       }}
                     >
-                      <source src="/animation_video.mp4" type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
+                      <video
+                        ref={videoRef}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        onError={() => setVideoError(true)}
+                        style={{
+                          width: '100%',
+                          height: 'auto',
+                          display: 'block'
+                        }}
+                      >
+                        <source src="/animation_video.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
                   ) : (
                     <Logo height={280} showText={false} />
                   )}
