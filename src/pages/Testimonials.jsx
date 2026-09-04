@@ -92,7 +92,7 @@ const Testimonials = () => {
                             <MessageSquare className="text-white" size={14} />
                           </div>
                           <div className="d-flex gap-0.5 text-warning">
-                            {Array.from({ length: test.rating }).map((_, i) => (
+                            {Array.from({ length: Math.max(1, Math.min(5, Number(test.rating) || 5)) }).map((_, i) => (
                               <Star key={i} fill="currentColor" size={12} />
                             ))}
                           </div>
@@ -105,7 +105,7 @@ const Testimonials = () => {
 
                       <div className="d-flex align-items-center gap-3 pt-3 border-top" style={{ borderColor: 'var(--glass-border)' }}>
                         <img 
-                          src={test.photo} 
+                          src={test.photo || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100'} 
                           alt={test.name} 
                           className="rounded-circle border border-secondary"
                           style={{ width: '38px', height: '38px', objectFit: 'cover' }}

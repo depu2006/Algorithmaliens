@@ -573,7 +573,7 @@ const Home = () => {
                         
                         {/* Rating stars */}
                         <div className="d-flex justify-content-center gap-1 mb-4 text-warning">
-                          {Array.from({ length: test.rating }).map((_, i) => (
+                          {Array.from({ length: Math.max(1, Math.min(5, Number(test.rating) || 5)) }).map((_, i) => (
                             <Star fill="currentColor" size={14} key={i} />
                           ))}
                         </div>
@@ -586,7 +586,7 @@ const Home = () => {
                         {/* Author info */}
                         <div className="d-flex align-items-center justify-content-center gap-3">
                           <img
-                            src={test.photo}
+                            src={test.photo || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100'}
                             alt={test.name}
                             className="rounded-circle border border-secondary"
                             style={{ width: '48px', height: '48px', objectFit: 'cover' }}

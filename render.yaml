@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: algorithm-aliens-backend
+    env: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_DEFAULT_USERNAME
+        value: info@algorithmaliens.com
+      - key: ADMIN_DEFAULT_PASSWORD
+        value: admin123
