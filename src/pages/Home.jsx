@@ -585,12 +585,24 @@ const Home = () => {
 
                         {/* Author info */}
                         <div className="d-flex align-items-center justify-content-center gap-3">
-                          <img
-                            src={test.photo || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100'}
-                            alt={test.name}
-                            className="rounded-circle border border-secondary"
-                            style={{ width: '48px', height: '48px', objectFit: 'cover' }}
-                          />
+                          <div
+                            style={{
+                              width: '44px',
+                              height: '44px',
+                              minWidth: '44px',
+                              borderRadius: '50%',
+                              background: 'var(--gradient-main)',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontSize: '0.9rem',
+                              fontWeight: '700',
+                              color: '#fff',
+                              fontFamily: "'Outfit', sans-serif"
+                            }}
+                          >
+                            {test.name?.split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase()}
+                          </div>
                           <div className="text-start">
                             <h6 className="fw-bold mb-0 text-white" style={{ fontSize: '0.95rem' }}>{test.name}</h6>
                             <small className="text-gradient-cyan text-uppercase" style={{ fontSize: '0.72rem', letterSpacing: '1px' }}>{test.role}</small>

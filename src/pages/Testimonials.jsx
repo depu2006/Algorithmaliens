@@ -104,12 +104,26 @@ const Testimonials = () => {
                       </div>
 
                       <div className="d-flex align-items-center gap-3 pt-3 border-top" style={{ borderColor: 'var(--glass-border)' }}>
-                        <img 
-                          src={test.photo || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100'} 
-                          alt={test.name} 
-                          className="rounded-circle border border-secondary"
-                          style={{ width: '38px', height: '38px', objectFit: 'cover' }}
-                        />
+                        {/* Initials avatar — reliable when no photo is provided */}
+                        <div
+                          style={{
+                            width: '40px',
+                            height: '40px',
+                            minWidth: '40px',
+                            borderRadius: '50%',
+                            background: 'var(--gradient-main)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontSize: '0.85rem',
+                            fontWeight: '700',
+                            color: '#fff',
+                            fontFamily: "'Outfit', sans-serif",
+                            letterSpacing: '0.5px'
+                          }}
+                        >
+                          {test.name?.split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase()}
+                        </div>
                         <div>
                           <h6 className="fw-bold text-white mb-0" style={{ fontSize: '0.88rem' }}>{test.name}</h6>
                           <small className="text-gradient-cyan text-uppercase" style={{ fontSize: '0.68rem', letterSpacing: '0.5px' }}>{test.role}</small>
