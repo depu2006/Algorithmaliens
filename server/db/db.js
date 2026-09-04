@@ -612,6 +612,18 @@ export async function initDb() {
     }
   ]);
 
+  const newFaqs=[
+    {id:'faq6',question:'What kind of projects do you take on?',answer:'Web and mobile apps, AI automations, SaaS platforms, and enterprise software. We work with startups and growing companies.',orderIndex:6},
+    {id:'faq7',question:'Do you offer ongoing support?',answer:'Yes - we offer support and continuous improvement retainers after launch.',orderIndex:7},
+    {id:'faq8',question:'Are your products available now?',answer:'AA Academy and ANX Clubs are live. Several flagship products are launching soon.',orderIndex:8},
+    {id:'faq9',question:'Can I partner on a product?',answer:'Yes - reach out via the contact form to discuss partnerships.',orderIndex:9},
+    {id:'faq10',question:'Are internships paid?',answer:'Our structured internships include a stipend and certification based on your performance.',orderIndex:10},
+    {id:'faq11',question:'What is the fastest way to reach you?',answer:'Email info@algorithmaliens.com or book a free consultation via the Book a Call page.',orderIndex:11}
+  ];
+  for(const faq of newFaqs){
+    await query.run('INSERT OR IGNORE INTO faq (id, question, answer, orderIndex) VALUES (?, ?, ?, ?)', [faq.id,faq.question,faq.answer,faq.orderIndex]);
+  }
+
   await seedTableIfEmpty('team', [
     {
       id: "vasanth",
