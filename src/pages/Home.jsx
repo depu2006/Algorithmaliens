@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Star, Calendar, Award, CheckCircle, ChevronRight, Activity, Terminal, Shield, Sparkles, ChevronDown, Loader2 } from 'lucide-react';
+import { ArrowRight, Star, Calendar, Award, CheckCircle, ChevronRight, Activity, Terminal, Shield, Sparkles, ChevronDown, Loader2, PhoneCall } from 'lucide-react';
 import * as Icons from 'lucide-react';
 
 import SEO from '../components/SEO';
@@ -94,9 +94,40 @@ const Home = () => {
             {/* Left Side Info */}
             <div className="col-lg-7 text-center text-lg-start">
 
-              {/* Tagline / Headline with Compiling Animation */}
+              {/* Pill Badge */}
+              <motion.div 
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill mb-3"
+                style={{ 
+                  background: 'rgba(139, 92, 246, 0.08)', 
+                  border: '1px solid rgba(139, 92, 246, 0.2)',
+                  backdropFilter: 'blur(8px)'
+                }}
+              >
+                <Sparkles size={14} className="text-gradient" />
+                <span className="small fw-semibold text-muted-custom" style={{ fontSize: '0.82rem', letterSpacing: '0.3px' }}>
+                  Engineering Innovation · Empowering Futures
+                </span>
+              </motion.div>
+
+              {/* Company Logo Row */}
+              <motion.div 
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="d-flex align-items-center justify-content-center justify-content-lg-start gap-2.5 mb-3"
+              >
+                <Logo height={28} showText={false} />
+                <span className="fw-bold fs-5 text-white" style={{ fontFamily: "'Outfit', sans-serif", letterSpacing: '-0.3px' }}>
+                  AlgorithmAliens
+                </span>
+              </motion.div>
+
+              {/* Tagline / Headline matching reference image */}
               <motion.h1 
-                className="creative-heading lh-sm"
+                className="creative-heading lh-sm mb-4"
                 style={{ fontFamily: "'Outfit', sans-serif" }}
               >
                 <motion.span 
@@ -113,7 +144,7 @@ const Home = () => {
                   transition={{ duration: 0.6, delay: 0.3 }}
                   className="text-gradient"
                 >
-                  Innovation
+                  Innovation.
                 </motion.span>
                 <br />
                 <motion.span 
@@ -130,34 +161,35 @@ const Home = () => {
                   transition={{ duration: 0.6, delay: 0.7 }}
                   className="text-gradient-cyan"
                 >
-                  Futures
+                  Futures.
                 </motion.span>
               </motion.h1>
 
-              {/* Supporting Sentence */}
+              {/* Supporting Sentence matching reference image */}
               <motion.p
                 className="lead text-muted-custom mb-5"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                style={{ fontSize: '1.15rem', maxWidth: '600px', lineHeight: '1.6' }}
+                style={{ fontSize: '1.12rem', maxWidth: '620px', lineHeight: '1.65' }}
               >
-                We build enterprise-grade applications, AI automation, and training pipelines that scale businesses and nurture the next generation of builders.
+                Transforming ideas into innovative digital solutions while empowering businesses, students, and communities through technology, products, and real-world learning.
               </motion.p>
 
-              {/* Action Buttons */}
+              {/* Action Buttons matching reference image */}
               <motion.div
                 className="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3 mb-5"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
-                <Link to="/book-call" className="btn-gradient">
-                  <span>Book Free Consultation</span>
-                  <ArrowRight size={16} />
+                <Link to="/book-call" className="btn-gradient rounded-pill px-4 py-2.5">
+                  <PhoneCall size={16} />
+                  <span>Book a Free Consultation</span>
                 </Link>
-                <Link to="/services" className="btn-outline-custom">
+                <Link to="/services" className="btn-outline-custom rounded-pill px-4 py-2.5">
                   <span>Explore Services</span>
+                  <ArrowRight size={16} />
                 </Link>
               </motion.div>
             </div>
