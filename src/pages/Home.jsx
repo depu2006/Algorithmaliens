@@ -216,7 +216,7 @@ const Home = () => {
 
               {/* CTA Buttons */}
               <motion.div
-                className="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3 mb-4"
+                className="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3"
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.64 }}
@@ -237,31 +237,6 @@ const Home = () => {
                   <span>Explore Services</span>
                   <ArrowRight size={16} />
                 </Link>
-              </motion.div>
-
-              {/* Tech Trust Strip */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.78 }}
-                className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start gap-2 mt-2"
-              >
-                <span className="text-muted-custom" style={{ fontSize: '0.75rem', opacity: 0.6, fontWeight: 500 }}>Built with:</span>
-                {['React', 'Node.js', 'Python', 'AI/ML', 'Firebase'].map((tech) => (
-                  <span
-                    key={tech}
-                    style={{
-                      fontSize: '0.72rem',
-                      fontWeight: 700,
-                      padding: '3px 10px',
-                      borderRadius: '20px',
-                      background: 'rgba(139,92,246,0.07)',
-                      border: '1px solid rgba(139,92,246,0.15)',
-                      color: 'var(--muted-text)',
-                      letterSpacing: '0.3px'
-                    }}
-                  >{tech}</span>
-                ))}
               </motion.div>
             </div>
 
@@ -329,22 +304,18 @@ const Home = () => {
                   style={{ zIndex: 2, width: '100%', maxWidth: '380px', margin: '0 auto' }}
                 >
                   {theme === 'light' ? (
-                    /* ── LIGHT: logo in a soft white card ── */
-                    <div
-                      className="rounded-4 overflow-hidden d-flex align-items-center justify-content-center"
+                    /* ── LIGHT: mix-blend-mode removes white PNG bg on gradient ── */
+                    <img
+                      src="/logo-light.png"
+                      alt="Algorithm Aliens Pvt. Ltd."
                       style={{
-                        background: 'rgba(255,255,255,0.85)',
-                        border: '1px solid rgba(139,92,246,0.15)',
-                        boxShadow: '0 20px 50px rgba(139,92,246,0.15)',
-                        padding: '32px',
+                        width: '100%',
+                        height: 'auto',
+                        display: 'block',
+                        mixBlendMode: 'multiply',
+                        filter: 'drop-shadow(0 12px 32px rgba(139,92,246,0.18))',
                       }}
-                    >
-                      <img
-                        src="/logo-light.png"
-                        alt="Algorithm Aliens Pvt. Ltd."
-                        style={{ width: '100%', height: 'auto', display: 'block' }}
-                      />
-                    </div>
+                    />
                   ) : !videoError ? (
                     /* ── DARK: video in a dark card ── */
                     <div
