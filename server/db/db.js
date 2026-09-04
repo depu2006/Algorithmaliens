@@ -473,6 +473,12 @@ export async function initDb() {
     }
   ]);
 
+  // Migration: remove unwanted gallery items from live DB
+  const unwantedGalleryIds = ['g4', 'g5', 'g6', 'g7', 'g8'];
+  for (const id of unwantedGalleryIds) {
+    await query.run('DELETE FROM gallery WHERE id = ?', [id]);
+  }
+
   await seedTableIfEmpty('gallery', [
     {
       id: "g1",
@@ -491,51 +497,6 @@ export async function initDb() {
       url: "/images/canva_workshop.jpeg",
       description: "A Canva workshop hosted by IEEE MVSR Student Branch and IEEE Computer Society on May 1, 2025.",
       orderIndex: 2
-    },
-    {
-      id: "g4",
-      title: "Annual Team Retreat 2025",
-      category: "team",
-      type: "image",
-      url: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800",
-      description: "The leadership team and core engineers during our annual celebration.",
-      orderIndex: 4
-    },
-    {
-      id: "g5",
-      title: "SaaS Platform Launch",
-      category: "projects",
-      type: "image",
-      url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800",
-      description: "Launching a custom ERP tool developed for a multinational logistics firm.",
-      orderIndex: 5
-    },
-    {
-      id: "g6",
-      title: "Robotics Exhibition at Aethronix",
-      category: "events",
-      type: "image",
-      url: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800",
-      description: "Fascinating AI robotics hardware demonstrations at Aarohan Aethronix 2026.",
-      orderIndex: 6
-    },
-    {
-      id: "g7",
-      title: "AI Assistant Video Showcase",
-      category: "projects",
-      type: "video",
-      url: "https://www.w3schools.com/html/mov_bbb.mp4",
-      description: "A quick visual demonstration of our customized Voice AI agent responding in real-time.",
-      orderIndex: 7
-    },
-    {
-      id: "g8",
-      title: "Team Brainstorming Session",
-      category: "team",
-      type: "image",
-      url: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800",
-      description: "Designing the architecture diagram for a futuristic decentralized application.",
-      orderIndex: 8
     },
     {
       id: "g9",
