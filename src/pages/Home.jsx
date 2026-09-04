@@ -111,24 +111,30 @@ const Home = () => {
             {/* ── LEFT COLUMN ── */}
             <div className="col-lg-6 text-center text-lg-start">
 
-              {/* Status Pill */}
+              {/* Status Pill with Live Pulse */}
               <motion.div
                 initial={{ opacity: 0, y: -12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45 }}
                 className="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill mb-4"
                 style={{
-                  background: 'rgba(139, 92, 246, 0.09)',
-                  border: '1px solid rgba(139, 92, 246, 0.22)',
-                  backdropFilter: 'blur(10px)'
+                  background: theme === 'light' ? 'rgba(139, 92, 246, 0.07)' : 'rgba(139, 92, 246, 0.12)',
+                  border: '1px solid rgba(139, 92, 246, 0.28)',
+                  backdropFilter: 'blur(12px)',
+                  boxShadow: '0 4px 20px rgba(139, 92, 246, 0.1)'
                 }}
               >
-                <span style={{
-                  width: 8, height: 8, borderRadius: '50%',
-                  background: 'var(--accent-cyan)',
-                  boxShadow: '0 0 8px var(--accent-cyan)',
-                  display: 'inline-block', flexShrink: 0
-                }} />
+                <span className="position-relative d-inline-flex align-items-center justify-content-center" style={{ width: 10, height: 10 }}>
+                  <span style={{
+                    position: 'absolute', width: '100%', height: '100%', borderRadius: '50%',
+                    background: 'var(--accent-cyan)', opacity: 0.75,
+                    animation: 'node-pulse 2s infinite ease-in-out'
+                  }} />
+                  <span style={{
+                    width: 6, height: 6, borderRadius: '50%',
+                    background: 'var(--accent-cyan)', zIndex: 1
+                  }} />
+                </span>
                 <span className="text-muted-custom fw-semibold" style={{ fontSize: '0.8rem', letterSpacing: '0.4px' }}>
                   Pvt. Ltd. · Est. 2023 · Hyderabad, India
                 </span>
