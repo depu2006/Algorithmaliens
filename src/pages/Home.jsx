@@ -88,7 +88,7 @@ const Home = () => {
       />
 
       {/* 1. HERO SECTION (Full Viewport Height) */}
-      <section className="full-screen-hero position-relative d-flex align-items-center overflow-hidden" style={{ minHeight: '100vh', paddingTop: '100px', paddingBottom: '60px' }}>
+      <section className="full-screen-hero position-relative d-flex align-items-center overflow-hidden" style={{ minHeight: '100vh', paddingTop: '130px', paddingBottom: '60px' }}>
         {/* Multi-point ambient glow */}
         <div className="position-absolute pointer-events-none" style={{ inset: 0, zIndex: 1, overflow: 'hidden' }}>
           <div style={{
@@ -183,36 +183,7 @@ const Home = () => {
                 pipelines, and run structured Academy programs that turn students into job-ready engineers.
               </motion.p>
 
-              {/* Key Metrics Row */}
-              <motion.div
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: 0.54 }}
-                className="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3 mb-5"
-              >
-                {[
-                  { icon: <CheckCircle size={14} />, label: '25+ Projects Shipped' },
-                  { icon: <CheckCircle size={14} />, label: '5+ Enterprise Clients' },
-                  { icon: <CheckCircle size={14} />, label: '60+ Students Trained' },
-                ].map((m, i) => (
-                  <div
-                    key={i}
-                    className="d-flex align-items-center gap-2"
-                    style={{
-                      background: 'rgba(255,255,255,0.04)',
-                      border: '1px solid rgba(255,255,255,0.08)',
-                      borderRadius: '8px',
-                      padding: '6px 14px',
-                      fontSize: '0.82rem',
-                      fontWeight: 600,
-                      backdropFilter: 'blur(6px)'
-                    }}
-                  >
-                    <span className="text-gradient-cyan">{m.icon}</span>
-                    <span className="text-muted-custom">{m.label}</span>
-                  </div>
-                ))}
-              </motion.div>
+
 
               {/* CTA Buttons */}
               <motion.div
