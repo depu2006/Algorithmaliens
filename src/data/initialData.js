@@ -141,10 +141,10 @@ export const initialTestimonials = [
 ];
 
 export const initialStatistics = [
-  { id: "projects", value: 120, suffix: "+", label: "Projects Completed", description: "Bespoke SaaS, mobile applications, and automation systems delivered globally." },
-  { id: "students", value: 4500, suffix: "+", label: "Students Trained", description: "Learners empowered through ANX Chapters, Hackathons, and Bootcamps." },
-  { id: "uptime", value: 99.9, suffix: "%", label: "System Uptime", description: "High-reliability backend infrastructure designed for production scale." },
-  { id: "partners", value: 25, suffix: "+", label: "Enterprise Partners", description: "Corporate clients, educational institutions, and incubator partners." }
+  { id: "projects", value: 25, suffix: "+", label: "Projects Shipped", description: "Bespoke SaaS, mobile applications, and automation systems delivered." },
+  { id: "clients", value: 5, suffix: "+", label: "Clients Served", description: "Happy startups, educational institutes, and mid-sized enterprises." },
+  { id: "students", value: 60, suffix: "+", label: "Students Trained", description: "Learners empowered through workshops, ANX Chapters, and bootcamps." },
+  { id: "events", value: 6, suffix: "+", label: "Events Hosted", description: "Hackathons, competitive coding challenges, and technology expos." }
 ];
 
 export const initialProducts = [

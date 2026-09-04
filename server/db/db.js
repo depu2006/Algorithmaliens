@@ -660,18 +660,18 @@ export async function initDb() {
     }
   ]);
 
-  await seedTableIfEmpty('statistics', [
+  const updatedStats = [
     {
       id: "projects",
-      value: 120,
+      value: 25,
       suffix: "+",
-      label: "Projects Completed",
-      description: "Bespoke SaaS, mobile applications, and automation systems delivered globally.",
+      label: "Projects Shipped",
+      description: "Bespoke SaaS, mobile applications, and automation systems delivered.",
       orderIndex: 1
     },
     {
       id: "clients",
-      value: 45,
+      value: 5,
       suffix: "+",
       label: "Clients Served",
       description: "Happy startups, educational institutes, and mid-sized enterprises.",
@@ -679,21 +679,36 @@ export async function initDb() {
     },
     {
       id: "students",
-      value: 2500,
+      value: 60,
       suffix: "+",
       label: "Students Trained",
-      description: "Nurtured through AlgorithmAliens Academy courses and bootcamps.",
+      description: "Learners empowered through workshops, ANX Chapters, and bootcamps.",
       orderIndex: 3
     },
     {
       id: "events",
-      value: 15,
-      suffix: "",
-      label: "Events Conducted",
-      description: "Hackathons, competitive programming challenges, and technology expos.",
+      value: 6,
+      suffix: "+",
+      label: "Events Hosted",
+      description: "Hackathons, competitive coding challenges, and technology expos.",
       orderIndex: 4
     }
-  ]);
+  ];
+
+  await seedTableIfEmpty('statistics', updatedStats);
+
+  for (const stat of updatedStats) {
+    await query.run(`
+      INSERT INTO statistics (id, value, suffix, label, description, orderIndex)
+      VALUES (?, ?, ?, ?, ?, ?)
+      ON CONFLICT(id) DO UPDATE SET
+        value = excluded.value,
+        suffix = excluded.suffix,
+        label = excluded.label,
+        description = excluded.description,
+        orderIndex = excluded.orderIndex
+    `, [stat.id, stat.value, stat.suffix, stat.label, stat.description, stat.orderIndex]);
+  }
 
   await seedTableIfEmpty('internships', [
     {
