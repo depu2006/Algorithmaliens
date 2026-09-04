@@ -88,231 +88,299 @@ const Home = () => {
       />
 
       {/* 1. HERO SECTION (Full Viewport Height) */}
-      <section className="full-screen-hero position-relative d-flex align-items-center py-5 overflow-hidden">
-        {/* Subtle background glow */}
-        <div 
-          className="position-absolute top-50 start-50 translate-middle pointer-events-none" 
-          style={{
-            width: '600px',
-            height: '600px',
-            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(6, 182, 212, 0.08) 45%, transparent 70%)',
-            filter: 'blur(50px)',
-            zIndex: 1
-          }}
-        />
+      <section className="full-screen-hero position-relative d-flex align-items-center overflow-hidden" style={{ minHeight: '100vh', paddingTop: '100px', paddingBottom: '60px' }}>
+        {/* Multi-point ambient glow */}
+        <div className="position-absolute pointer-events-none" style={{ inset: 0, zIndex: 1, overflow: 'hidden' }}>
+          <div style={{
+            position: 'absolute', top: '15%', left: '5%',
+            width: '500px', height: '500px',
+            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.18) 0%, transparent 70%)',
+            filter: 'blur(60px)'
+          }} />
+          <div style={{
+            position: 'absolute', top: '20%', right: '5%',
+            width: '420px', height: '420px',
+            background: 'radial-gradient(circle, rgba(6, 182, 212, 0.14) 0%, transparent 70%)',
+            filter: 'blur(60px)'
+          }} />
+        </div>
 
         <div className="container position-relative" style={{ zIndex: 2 }}>
-          <div className="row align-items-center g-5">
-            {/* Left Side Info */}
-            <div className="col-lg-7 text-center text-lg-start">
+          <div className="row align-items-center g-4 g-lg-5">
 
-              {/* Pill Badge */}
-              <motion.div 
-                initial={{ opacity: 0, y: -10 }}
+            {/* ── LEFT COLUMN ── */}
+            <div className="col-lg-6 text-center text-lg-start">
+
+              {/* Status Pill */}
+              <motion.div
+                initial={{ opacity: 0, y: -12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill mb-3"
-                style={{ 
-                  background: 'rgba(139, 92, 246, 0.08)', 
-                  border: '1px solid rgba(139, 92, 246, 0.2)',
-                  backdropFilter: 'blur(8px)'
+                transition={{ duration: 0.45 }}
+                className="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill mb-4"
+                style={{
+                  background: 'rgba(139, 92, 246, 0.09)',
+                  border: '1px solid rgba(139, 92, 246, 0.22)',
+                  backdropFilter: 'blur(10px)'
                 }}
               >
-                <Sparkles size={14} className="text-gradient" />
-                <span className="small fw-semibold text-muted-custom" style={{ fontSize: '0.82rem', letterSpacing: '0.3px' }}>
-                  Engineering Innovation · Empowering Futures
+                <span style={{
+                  width: 8, height: 8, borderRadius: '50%',
+                  background: 'var(--accent-cyan)',
+                  boxShadow: '0 0 8px var(--accent-cyan)',
+                  display: 'inline-block', flexShrink: 0
+                }} />
+                <span className="text-muted-custom fw-semibold" style={{ fontSize: '0.8rem', letterSpacing: '0.4px' }}>
+                  Pvt. Ltd. · Est. 2023 · Hyderabad, India
                 </span>
               </motion.div>
 
-              {/* Tagline / Headline matching reference image */}
-              <motion.h1 
-                className="creative-heading lh-sm mb-4"
-                style={{ fontFamily: "'Outfit', sans-serif", fontSize: 'clamp(2.5rem, 5vw, 3.6rem)', fontWeight: 800, letterSpacing: '-0.03em' }}
+              {/* Main Headline */}
+              <motion.h1
+                className="lh-1 mb-4"
+                style={{
+                  fontFamily: "'Sora', 'Outfit', sans-serif",
+                  fontSize: 'clamp(2.6rem, 5.5vw, 4rem)',
+                  fontWeight: 800,
+                  letterSpacing: '-0.04em',
+                  lineHeight: 1.08
+                }}
               >
-                <motion.span 
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 }}
-                  className="d-block d-sm-inline"
+                <motion.span
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.55, delay: 0.1 }}
+                  style={{ display: 'block', marginBottom: '0.15em' }}
                 >
-                  Engineering
-                </motion.span>{" "}
-                <motion.span 
-                  initial={{ opacity: 0, scale: 0.92 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                  className="text-gradient"
-                >
-                  Innovation.
+                  Engineering{' '}
+                  <span className="text-gradient">Innovation.</span>
                 </motion.span>
-                <br />
-                <motion.span 
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.5 }}
-                  className="d-block d-sm-inline"
+                <motion.span
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.55, delay: 0.28 }}
+                  style={{ display: 'block' }}
                 >
-                  Empowering
-                </motion.span>{" "}
-                <motion.span 
-                  initial={{ opacity: 0, scale: 0.92 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6, delay: 0.7 }}
-                  className="text-gradient-cyan"
-                >
-                  Futures.
+                  Empowering{' '}
+                  <span className="text-gradient-cyan">Futures.</span>
                 </motion.span>
               </motion.h1>
 
-              {/* Supporting Sentence */}
+              {/* Sub-headline */}
               <motion.p
-                className="lead text-muted-custom mb-4"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                style={{ fontSize: '1.15rem', maxWidth: '640px', lineHeight: '1.65' }}
-              >
-                Transforming ideas into innovative digital solutions while empowering businesses, students, and communities through technology, products, and real-world learning.
-              </motion.p>
-
-              {/* Micro Metrics Highlights Bar */}
-              <motion.div 
+                className="text-muted-custom mb-4"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start gap-4 mb-4 text-muted-custom"
-                style={{ fontSize: '0.88rem', fontWeight: 600 }}
+                transition={{ duration: 0.5, delay: 0.42 }}
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: 'clamp(1rem, 1.8vw, 1.15rem)',
+                  lineHeight: 1.72,
+                  maxWidth: '520px',
+                  fontWeight: 400
+                }}
               >
-                <div className="d-flex align-items-center gap-1.5">
-                  <CheckCircle size={15} className="text-gradient" />
-                  <span>25+ Shipped Projects</span>
-                </div>
-                <div className="d-flex align-items-center gap-1.5">
-                  <CheckCircle size={15} className="text-gradient" />
-                  <span>5+ Enterprise Clients</span>
-                </div>
-                <div className="d-flex align-items-center gap-1.5">
-                  <CheckCircle size={15} className="text-gradient" />
-                  <span>60+ Students Trained</span>
-                </div>
+                We build enterprise-grade web &amp; mobile applications, intelligent AI automation
+                pipelines, and run structured Academy programs that turn students into job-ready engineers.
+              </motion.p>
+
+              {/* Key Metrics Row */}
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: 0.54 }}
+                className="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3 mb-5"
+              >
+                {[
+                  { icon: <CheckCircle size={14} />, label: '25+ Projects Shipped' },
+                  { icon: <CheckCircle size={14} />, label: '5+ Enterprise Clients' },
+                  { icon: <CheckCircle size={14} />, label: '60+ Students Trained' },
+                ].map((m, i) => (
+                  <div
+                    key={i}
+                    className="d-flex align-items-center gap-2"
+                    style={{
+                      background: 'rgba(255,255,255,0.04)',
+                      border: '1px solid rgba(255,255,255,0.08)',
+                      borderRadius: '8px',
+                      padding: '6px 14px',
+                      fontSize: '0.82rem',
+                      fontWeight: 600,
+                      backdropFilter: 'blur(6px)'
+                    }}
+                  >
+                    <span className="text-gradient-cyan">{m.icon}</span>
+                    <span className="text-muted-custom">{m.label}</span>
+                  </div>
+                ))}
               </motion.div>
 
-              {/* Action Buttons */}
+              {/* CTA Buttons */}
               <motion.div
                 className="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3 mb-4"
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
+                transition={{ duration: 0.5, delay: 0.64 }}
               >
-                <Link to="/book-call" className="btn-gradient rounded-pill px-4 py-2.5 d-inline-flex align-items-center gap-2">
+                <Link
+                  to="/book-call"
+                  className="btn-gradient d-inline-flex align-items-center gap-2"
+                  style={{ borderRadius: '10px', padding: '13px 28px', fontSize: '0.95rem' }}
+                >
                   <PhoneCall size={16} />
-                  <span>Book a Free Consultation</span>
+                  <span>Book Free Consultation</span>
                 </Link>
-                <Link to="/services" className="btn-outline-custom rounded-pill px-4 py-2.5 d-inline-flex align-items-center gap-2">
+                <Link
+                  to="/services"
+                  className="btn-outline-custom d-inline-flex align-items-center gap-2"
+                  style={{ borderRadius: '10px', padding: '13px 28px', fontSize: '0.95rem' }}
+                >
                   <span>Explore Services</span>
                   <ArrowRight size={16} />
                 </Link>
               </motion.div>
+
+              {/* Tech Trust Strip */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.78 }}
+                className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start gap-2 mt-2"
+              >
+                <span className="text-muted-custom" style={{ fontSize: '0.75rem', opacity: 0.6, fontWeight: 500 }}>Built with:</span>
+                {['React', 'Node.js', 'Python', 'AI/ML', 'Firebase'].map((tech) => (
+                  <span
+                    key={tech}
+                    style={{
+                      fontSize: '0.72rem',
+                      fontWeight: 700,
+                      padding: '3px 10px',
+                      borderRadius: '20px',
+                      background: 'rgba(139,92,246,0.07)',
+                      border: '1px solid rgba(139,92,246,0.15)',
+                      color: 'var(--muted-text)',
+                      letterSpacing: '0.3px'
+                    }}
+                  >{tech}</span>
+                ))}
+              </motion.div>
             </div>
 
-            {/* Right Side Hero Showcase (Seamless Drop-Shadow Blending & Floating Micro Badges) */}
-            <div className="col-lg-5 text-center position-relative">
+            {/* ── RIGHT COLUMN — Logo / Video ── */}
+            <div className="col-lg-6 text-center position-relative d-flex align-items-center justify-content-center">
               <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, ease: 'easeOut' }}
-                className="position-relative d-inline-block w-100"
+                initial={{ opacity: 0, scale: 0.93, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.85, ease: 'easeOut', delay: 0.15 }}
+                className="position-relative"
+                style={{ width: '100%', maxWidth: '440px' }}
               >
-                {/* Floating Micro Badge 1 (Top-Right) */}
+                {/* Glow ring behind logo */}
+                <div style={{
+                  position: 'absolute', inset: '-20px',
+                  borderRadius: '50%',
+                  background: 'radial-gradient(circle, rgba(139,92,246,0.18) 0%, rgba(6,182,212,0.1) 50%, transparent 75%)',
+                  filter: 'blur(30px)',
+                  zIndex: 0
+                }} />
+
+                {/* Floating Badge — top right */}
                 <motion.div
-                  animate={{ y: [0, -8, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="position-absolute d-none d-sm-flex align-items-center gap-2 px-3 py-2 rounded-4 shadow-sm"
+                  animate={{ y: [0, -9, 0] }}
+                  transition={{ duration: 3.8, repeat: Infinity, ease: 'easeInOut' }}
+                  className="position-absolute d-none d-md-flex align-items-center gap-2"
                   style={{
-                    top: '-15px',
-                    right: '10px',
-                    background: theme === 'light' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(15, 23, 42, 0.85)',
-                    border: '1px solid rgba(139, 92, 246, 0.2)',
-                    backdropFilter: 'blur(12px)',
-                    zIndex: 4,
-                    fontSize: '0.8rem',
-                    fontWeight: 600,
-                    boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
+                    top: '-10px', right: '-10px',
+                    padding: '8px 14px',
+                    borderRadius: '12px',
+                    background: theme === 'light' ? 'rgba(255,255,255,0.96)' : 'rgba(14,18,36,0.88)',
+                    border: '1px solid rgba(139,92,246,0.25)',
+                    backdropFilter: 'blur(14px)',
+                    boxShadow: '0 8px 24px rgba(139,92,246,0.15)',
+                    zIndex: 5, fontSize: '0.78rem', fontWeight: 700
                   }}
                 >
-                  <Sparkles size={14} className="text-gradient" />
-                  <span className={theme === 'light' ? 'text-dark' : 'text-white'}>AI & Full-Stack Apps</span>
+                  <Sparkles size={13} className="text-gradient" />
+                  <span className={theme === 'light' ? 'text-dark' : 'text-white'}>AI · Full-Stack · Mobile</span>
                 </motion.div>
 
-                {/* Floating Micro Badge 2 (Bottom-Left) */}
+                {/* Floating Badge — bottom left */}
                 <motion.div
-                  animate={{ y: [0, 8, 0] }}
-                  transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                  className="position-absolute d-none d-sm-flex align-items-center gap-2 px-3 py-2 rounded-4 shadow-sm"
+                  animate={{ y: [0, 9, 0] }}
+                  transition={{ duration: 4.3, repeat: Infinity, ease: 'easeInOut', delay: 0.6 }}
+                  className="position-absolute d-none d-md-flex align-items-center gap-2"
                   style={{
-                    bottom: '10px',
-                    left: '-15px',
-                    background: theme === 'light' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(15, 23, 42, 0.85)',
-                    border: '1px solid rgba(6, 182, 212, 0.2)',
-                    backdropFilter: 'blur(12px)',
-                    zIndex: 4,
-                    fontSize: '0.8rem',
-                    fontWeight: 600,
-                    boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
+                    bottom: '-10px', left: '-10px',
+                    padding: '8px 14px',
+                    borderRadius: '12px',
+                    background: theme === 'light' ? 'rgba(255,255,255,0.96)' : 'rgba(14,18,36,0.88)',
+                    border: '1px solid rgba(6,182,212,0.25)',
+                    backdropFilter: 'blur(14px)',
+                    boxShadow: '0 8px 24px rgba(6,182,212,0.12)',
+                    zIndex: 5, fontSize: '0.78rem', fontWeight: 700
                   }}
                 >
-                  <Shield size={14} className="text-gradient-cyan" />
-                  <span className={theme === 'light' ? 'text-dark' : 'text-white'}>Enterprise Scale</span>
+                  <Shield size={13} className="text-gradient-cyan" />
+                  <span className={theme === 'light' ? 'text-dark' : 'text-white'}>Enterprise · Scalable</span>
                 </motion.div>
 
-                {/* Brand Logo Presentation without harsh background box */}
-                <div 
-                  className="d-flex align-items-center justify-content-center p-3"
-                  style={{ maxWidth: '100%', margin: '0 auto' }}
+                {/* Logo / Video — same size & card style in both themes */}
+                <div
+                  className="position-relative"
+                  style={{ zIndex: 2, width: '100%', maxWidth: '380px', margin: '0 auto' }}
                 >
                   {theme === 'light' ? (
-                    <img
-                      src="/logo-light.png"
-                      alt="Algorithm Aliens Pvt. Ltd."
+                    /* ── LIGHT: logo in a soft white card ── */
+                    <div
+                      className="rounded-4 overflow-hidden d-flex align-items-center justify-content-center"
                       style={{
-                        width: '100%',
-                        maxWidth: '380px',
-                        height: 'auto',
-                        display: 'block',
-                        margin: '0 auto',
-                        filter: 'drop-shadow(0 15px 35px rgba(139, 92, 246, 0.2))',
-                        transition: 'transform 0.4s ease'
+                        background: 'rgba(255,255,255,0.85)',
+                        border: '1px solid rgba(139,92,246,0.15)',
+                        boxShadow: '0 20px 50px rgba(139,92,246,0.15)',
+                        padding: '32px',
                       }}
-                    />
+                    >
+                      <img
+                        src="/logo-light.png"
+                        alt="Algorithm Aliens Pvt. Ltd."
+                        style={{ width: '100%', height: 'auto', display: 'block' }}
+                      />
+                    </div>
                   ) : !videoError ? (
-                    <div 
-                      className="rounded-4 overflow-hidden" 
-                      style={{ 
-                        maxWidth: '380px', 
-                        margin: '0 auto',
-                        boxShadow: '0 20px 40px rgba(139, 92, 246, 0.25)',
-                        border: '1px solid rgba(139, 92, 246, 0.2)'
+                    /* ── DARK: video in a dark card ── */
+                    <div
+                      className="rounded-4 overflow-hidden"
+                      style={{
+                        background: 'rgba(10,10,18,0.9)',
+                        border: '1px solid rgba(139,92,246,0.22)',
+                        boxShadow: '0 24px 60px rgba(139,92,246,0.3)',
                       }}
                     >
                       <video
                         ref={videoRef}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
+                        autoPlay loop muted playsInline
                         onError={() => setVideoError(true)}
-                        style={{
-                          width: '100%',
-                          height: 'auto',
-                          display: 'block'
-                        }}
+                        style={{ width: '100%', height: 'auto', display: 'block' }}
                       >
                         <source src="/animation_video.mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
                       </video>
                     </div>
                   ) : (
-                    <Logo height={280} showText={false} />
+                    /* ── DARK fallback: /logo.png in matching dark card ── */
+                    <div
+                      className="rounded-4 d-flex align-items-center justify-content-center"
+                      style={{
+                        background: 'rgba(10,10,18,0.9)',
+                        border: '1px solid rgba(139,92,246,0.22)',
+                        boxShadow: '0 24px 60px rgba(139,92,246,0.3)',
+                        padding: '32px',
+                      }}
+                    >
+                      <img
+                        src="/logo.png"
+                        alt="Algorithm Aliens Pvt. Ltd."
+                        style={{ width: '100%', height: 'auto', display: 'block' }}
+                      />
+                    </div>
                   )}
                 </div>
               </motion.div>
@@ -320,11 +388,62 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Bouncing Scroll indicator */}
+        {/* Scroll indicator */}
         <a href="#about-preview" className="scroll-down-btn">
           <ChevronDown size={20} />
         </a>
       </section>
+
+      {/* ── TICKER BELT — scrolling keywords strip ── */}
+      <div
+        className="ticker-belt"
+        style={{
+          overflow: 'hidden',
+          borderTop: '1px solid var(--glass-border)',
+          borderBottom: '1px solid var(--glass-border)',
+          padding: '14px 0',
+          background: theme === 'light'
+            ? 'rgba(255,255,255,0.6)'
+            : 'rgba(255,255,255,0.03)',
+          backdropFilter: 'blur(8px)',
+        }}
+      >
+        {/* Two copies for seamless loop */}
+        <div style={{ display: 'flex', width: 'max-content', animation: 'ticker-scroll 28s linear infinite' }}>
+          {[...Array(2)].map((_, copyIdx) => (
+            <div key={copyIdx} style={{ display: 'flex', alignItems: 'center', gap: 0 }}>
+              {[
+                'Web Development', 'AI Solutions', 'Mobile Apps', 'SaaS Platforms',
+                'Workflow Automation', 'Student Training', 'Hackathons', 'Product Innovation',
+                'Software Development', 'Cloud Deployment', 'UI/UX Design', 'API Integration',
+              ].map((label, i) => (
+                <span key={i} style={{ display: 'inline-flex', alignItems: 'center', whiteSpace: 'nowrap' }}>
+                  <span
+                    style={{
+                      fontSize: '0.82rem',
+                      fontWeight: 600,
+                      color: theme === 'light' ? '#374151' : 'var(--muted-text)',
+                      padding: '0 28px',
+                      letterSpacing: '0.2px',
+                      fontFamily: "'Inter', sans-serif",
+                    }}
+                  >
+                    {label}
+                  </span>
+                  <span
+                    style={{
+                      width: '6px', height: '6px', borderRadius: '50%',
+                      background: 'var(--primary-violet)',
+                      display: 'inline-block', flexShrink: 0,
+                      opacity: 0.7,
+                    }}
+                  />
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* 2. ABOUT PREVIEW SECTION */}
       <section id="about-preview" className="section-padding bg-black bg-opacity-30 border-top border-bottom" style={{ borderColor: 'var(--glass-border)' }}>

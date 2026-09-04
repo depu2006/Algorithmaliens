@@ -395,6 +395,16 @@ html[data-theme='light'] body {
   color: #374151 !important;
 }
 
+/* Hero metric chips (rgba 0.04 bg) and tech-stack pill tags */
+[data-theme='light'] div[style*='rgba(255,255,255,0.04)'] {
+  background: rgba(139, 92, 246, 0.06) !important;
+  border-color: rgba(139, 92, 246, 0.15) !important;
+}
+[data-theme='light'] span[style*='rgba(139,92,246,0.07)'] {
+  background: rgba(139, 92, 246, 0.08) !important;
+  color: #374151 !important;
+}
+
 /* About section floating badge overlay (dark inner overlay) */
 [data-theme='light'] div[style*='rgba(7,7,9'] {
   background: rgba(248,249,251,0.95) !important;
@@ -645,6 +655,16 @@ h1, h2, h3, h4, h5, h6 {
 .logo-image {
   display: block;
   object-fit: contain;
+}
+
+/* ── Ticker Belt ── */
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-belt:hover > div {
+  animation-play-state: paused;
 }
 
 /* Spacing and Utilities */
